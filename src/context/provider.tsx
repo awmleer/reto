@@ -1,7 +1,7 @@
 import * as React from 'react'
 import {ConstructorType, Store, contextSymbol} from '../store'
 import {FC, useContext, useEffect, useRef} from 'react'
-import {injectMetadataKey} from '../inject'
+import {injectMetadataKey} from '../di'
 
 export interface ProviderProps<T> {
   of: ConstructorType<T>
