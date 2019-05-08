@@ -1,8 +1,8 @@
 {
-  "name": "ovo",
+  "name": "reto",
   "version": "0.0.1",
   "main": "index.js",
-  "repository": "git@github.com:awmleer/ovo.git",
+  "repository": "https://github.com/awmleer/reto",
   "author": "awmleer <awmleer@sparker.xyz>",
   "license": "MIT",
   "private": false,
