@@ -1855,6 +1855,11 @@ ignore-walk@^3.0.1:
   dependencies:
     minimatch "^3.0.4"
 
+immer@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.npm.taobao.org/immer/download/immer-3.1.1.tgz#eddd2c28403f494df604992c554eade8d9e5c2bb"
+  integrity sha1-7d0sKEA/SU32BJksVU6t6Nnlwrs=
+
 import-local@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npm.taobao.org/import-local/download/import-local-2.0.0.tgz#55070be38a5993cf18ef6db7e961f5bee5c5a09d"

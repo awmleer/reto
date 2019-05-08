@@ -6,7 +6,7 @@ exports[`provider initialize 1`] = `
     <button>
       Change
     </button>
-    this is foo
+    1
   </div>
 </DocumentFragment>
 `;
@@ -17,7 +17,7 @@ exports[`provider initialize 2`] = `
     <button>
       Change
     </button>
-    foo changed
+    2
   </div>
 </DocumentFragment>
 `;

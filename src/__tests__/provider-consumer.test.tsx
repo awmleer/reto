@@ -106,7 +106,7 @@ it('storeWillDestroy is called', function () {
   const mockStoreWillDestroy = jest.fn(() => null)
   
   @store
-  class TestDestroyStore implements Store {
+  class TestDestroyStore extends Store {
     storeWillDestroy = mockStoreWillDestroy
   }
   

@@ -1,21 +1,23 @@
-import {applyToView, Provider, useStore} from '..'
+import {Provider, useStore} from '..'
 import {FooStore} from './stores/foo.store'
 import * as React from 'react'
 import {FC} from 'react'
 import * as testing from 'react-testing-library'
+import {act} from 'react-testing-library'
 
 test('provider initialize', function () {
   const App: FC = (props) => {
     const fooStore = useStore(FooStore)
     
     function changeStore() {
-      fooStore.foo = 'foo changed'
-      applyToView(fooStore)
+      fooStore.mutate(draft => {
+        draft.x++
+      })
     }
     return (
       <div>
         <button onClick={changeStore}>Change</button>
-        {fooStore.foo}
+        {fooStore.state.x}
       </div>
     )
   }

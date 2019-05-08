@@ -4,7 +4,7 @@ import {FC, useContext, useEffect, useRef} from 'react'
 import {contextSymbol, injectsSymbol, subscribersSymbol} from '../metadata-symbols'
 
 export interface ProviderProps<T> {
-  of: ConstructorType<T>
+  of: ConstructorType<Store<T>>
   args?: any[]
 }
 
@@ -13,9 +13,9 @@ type Props<T> = ProviderProps<T> & {
 }
 
 class StoreContainer {
-  public storeType: ConstructorType<Store> = null
+  public storeType: ConstructorType<Store<any>> = null
   
-  private _store: Store = undefined
+  private _store: Store<any> = undefined
   public get store() {
     return this._store
   }
@@ -68,9 +68,8 @@ function useInjections<T>(Store: ConstructorType<T>, args?: any[]) {
 }
 
 function createStore<T>(Store: ConstructorType<T>, args?: any[]) {
+  //FIXME
   const store = new Store(...args)
-  Reflect.defineMetadata(subscribersSymbol, [], store)
-  
   return store
 }
 
