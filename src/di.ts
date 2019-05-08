@@ -1,10 +1,7 @@
-import * as React from 'react'
-import {contextSymbol} from './store'
-
-export const injectMetadataKey = Symbol()
+import {injectsSymbol} from './metadata-symbols'
 
 export function inject(target: Object, propertyKey: string | symbol, parameterIndex: number) {
-  let injects: number[] = Reflect.getOwnMetadata(injectMetadataKey, target, propertyKey) || []
+  let injects: number[] = Reflect.getOwnMetadata(injectsSymbol, target, propertyKey) || []
   injects.push(parameterIndex)
-  Reflect.defineMetadata(injectMetadataKey, injects, target, propertyKey)
+  Reflect.defineMetadata(injectsSymbol, injects, target, propertyKey)
 }

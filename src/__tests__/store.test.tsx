@@ -1,30 +1,30 @@
-import * as TestRenderer from 'react-test-renderer'
-import {Provider, useStore} from '..'
+import {applyToView, Provider, useStore} from '..'
 import {FooStore} from './stores/foo.store'
 import * as React from 'react'
 import {FC} from 'react'
-import * as ReactTestUtils from 'react-dom/test-utils'
+import * as testing from 'react-testing-library'
 
-it('provider initialize', function () {
+test('provider initialize', function () {
   const App: FC = (props) => {
     const fooStore = useStore(FooStore)
     
     function changeStore() {
       fooStore.foo = 'foo changed'
+      applyToView(fooStore)
     }
     return (
       <div>
-        <button id='btn' onClick={changeStore}/>
+        <button onClick={changeStore}>Change</button>
         {fooStore.foo}
       </div>
     )
   }
-  const renderer = TestRenderer.create(
+  const renderer = testing.render(
     <Provider of={FooStore}>
       <App/>
     </Provider>
   )
-  expect(renderer.toJSON()).toMatchSnapshot()
-  ReactTestUtils.Simulate.click(renderer.root.findByProps({id: 'btn'}))
-  expect(renderer.toJSON()).toMatchSnapshot()
+  expect(renderer.asFragment()).toMatchSnapshot()
+  testing.fireEvent.click(testing.getByText(renderer.container, 'Change'))
+  expect(renderer.asFragment()).toMatchSnapshot()
 })

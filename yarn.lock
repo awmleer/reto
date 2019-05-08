@@ -98,7 +98,7 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.0.0"
 
-"@babel/runtime@^7.3.1", "@babel/runtime@^7.4.3":
+"@babel/runtime@^7.4.3":
   version "7.4.4"
   resolved "https://registry.npm.taobao.org/@babel/runtime/download/@babel/runtime-7.4.4.tgz#dc2e34982eb236803aa27a07fea6857af1b9171d"
   integrity sha1-3C40mC6yNoA6onoH/qaFevG5Fx0=
@@ -1141,10 +1141,10 @@ diff-sequences@^24.3.0:
   resolved "https://registry.npm.taobao.org/diff-sequences/download/diff-sequences-24.3.0.tgz#0f20e8a1df1abddaf4d9c226680952e64118b975"
   integrity sha1-DyDood8avdr02cImaAlS5kEYuXU=
 
-dom-testing-library@^3.13.1:
-  version "3.19.4"
-  resolved "https://registry.npm.taobao.org/dom-testing-library/download/dom-testing-library-3.19.4.tgz#f5b737f59ee9749a4568fa353f1f59be97c888c3"
-  integrity sha1-9bc39Z7pdJpFaPo1Px9ZvpfIiMM=
+dom-testing-library@^4.0.0:
+  version "4.0.1"
+  resolved "https://registry.npm.taobao.org/dom-testing-library/download/dom-testing-library-4.0.1.tgz#f21ef42aea0bd635969b4227a487e4704dbea735"
+  integrity sha1-8h70KuoL1jWWm0InpIfkcE2+pzU=
   dependencies:
     "@babel/runtime" "^7.4.3"
     "@sheerun/mutationobserver-shim" "^0.3.2"
@@ -3603,13 +3603,13 @@ react-test-renderer@^16.8.0:
     react-is "^16.8.6"
     scheduler "^0.13.6"
 
-react-testing-library@^5.5.4:
-  version "5.9.0"
-  resolved "https://registry.npm.taobao.org/react-testing-library/download/react-testing-library-5.9.0.tgz#e1c8a586d2f2cbd5f0035474ca90258eef1fece6"
-  integrity sha1-4cilhtLyy9XwA1R0ypAlju8f7OY=
+react-testing-library@7.x:
+  version "7.0.0"
+  resolved "https://registry.npm.taobao.org/react-testing-library/download/react-testing-library-7.0.0.tgz#d3b535e44de94d7b0a83c56cd2e3cfed752dcec1"
+  integrity sha1-07U15E3pTXsKg8Vs0uPP7XUtzsE=
   dependencies:
-    "@babel/runtime" "^7.3.1"
-    dom-testing-library "^3.13.1"
+    "@babel/runtime" "^7.4.3"
+    dom-testing-library "^4.0.0"
 
 react@^16.8.0:
   version "16.8.6"

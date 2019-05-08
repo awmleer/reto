@@ -1,21 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`provider initialize 1`] = `
-<div>
-  <button
-    id="btn"
-    onClick={[Function]}
-  />
-  this is foo
-</div>
+<DocumentFragment>
+  <div>
+    <button>
+      Change
+    </button>
+    this is foo
+  </div>
+</DocumentFragment>
 `;
 
 exports[`provider initialize 2`] = `
-<div>
-  <button
-    id="btn"
-    onClick={[Function]}
-  />
-  this is foo
-</div>
+<DocumentFragment>
+  <div>
+    <button>
+      Change
+    </button>
+    foo changed
+  </div>
+</DocumentFragment>
 `;

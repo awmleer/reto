@@ -27,7 +27,7 @@
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-test-renderer": "^16.8.0",
-    "react-testing-library": "^5.5.4",
+    "react-testing-library": "7.x",
     "ts-jest": "24.x",
     "typescript": "3.3.x"
   },

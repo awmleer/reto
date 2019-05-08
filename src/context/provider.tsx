@@ -1,7 +1,7 @@
 import * as React from 'react'
-import {ConstructorType, Store, contextSymbol} from '../store'
+import {ConstructorType, Store} from '../store'
 import {FC, useContext, useEffect, useRef} from 'react'
-import {injectMetadataKey} from '../di'
+import {contextSymbol, injectsSymbol, subscribersSymbol} from '../metadata-symbols'
 
 export interface ProviderProps<T> {
   of: ConstructorType<T>
@@ -56,7 +56,7 @@ class StoreContainer {
 }
 
 function useInjections<T>(Store: ConstructorType<T>, args?: any[]) {
-  const injects = Reflect.getMetadata(injectMetadataKey, Store) || []
+  const injects = Reflect.getMetadata(injectsSymbol, Store) || []
   const paramTypes = Reflect.getMetadata('design:paramtypes', Store) || []
   for (let inject of injects) {
     const Context = Reflect.getMetadata(contextSymbol, paramTypes[inject])
@@ -68,7 +68,10 @@ function useInjections<T>(Store: ConstructorType<T>, args?: any[]) {
 }
 
 function createStore<T>(Store: ConstructorType<T>, args?: any[]) {
-  return new Store(...args)
+  const store = new Store(...args)
+  Reflect.defineMetadata(subscribersSymbol, [], store)
+  
+  return store
 }
 
 export const Provider: FC<Props<any>> = function Provider<T>(props: Props<T>) {
