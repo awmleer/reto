@@ -1,18 +1,18 @@
-import {injectable, inject} from '../..'
+import {store, inject, Store} from '../..'
 
-@injectable
+@store
 export class FooStore {
   foo: string = 'this is foo'
 }
 
-@injectable
+@store
 export class FaaStore {
   constructor(
     public faa: string = 'this is faa'
   ) {}
 }
 
-@injectable
+@store
 export class BarStore {
   constructor(
     @inject public fooStore: FooStore

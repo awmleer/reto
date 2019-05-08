@@ -55,29 +55,33 @@ class StoreContainer {
   }
 }
 
-export const Provider: FC<Props<any>> = function Provider<T>(props: Props<T>) {
-  function useInjections(Store: ConstructorType<T>, args?: any[]) {
-    const injects = Reflect.getMetadata(injectMetadataKey, Store) || []
-    const paramTypes = Reflect.getMetadata('design:paramtypes', Store) || []
-    for (let inject of injects) {
-      const Context = Reflect.getMetadata(contextSymbol, paramTypes[inject])
-      const injection = useContext(Context)
-      if (args) {
-        args[inject] = injection
-      }
+function useInjections<T>(Store: ConstructorType<T>, args?: any[]) {
+  const injects = Reflect.getMetadata(injectMetadataKey, Store) || []
+  const paramTypes = Reflect.getMetadata('design:paramtypes', Store) || []
+  for (let inject of injects) {
+    const Context = Reflect.getMetadata(contextSymbol, paramTypes[inject])
+    const injection = useContext(Context)
+    if (args) {
+      args[inject] = injection
     }
   }
-  
+}
+
+function createStore<T>(Store: ConstructorType<T>, args?: any[]) {
+  return new Store(...args)
+}
+
+export const Provider: FC<Props<any>> = function Provider<T>(props: Props<T>) {
   const containerRef = useRef(new StoreContainer())
   useInjections(props.of, props.args)
   
   if (containerRef.current.storeType !== props.of) {
     containerRef.current.storeType = props.of
-    containerRef.current.store = new props.of(...props.args)
+    containerRef.current.store = createStore(props.of, props.args)
   }
   
   if (!containerRef.current.hasStore()) {
-    containerRef.current.store = new props.of(...props.args)
+    containerRef.current.store = createStore(props.of, props.args)
   }
   
   useEffect(() => {

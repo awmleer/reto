@@ -1,6 +1,6 @@
 import * as TestRenderer from 'react-test-renderer'
 import * as React from 'react'
-import {Store, injectable, Provider, useStore, withProvider} from '..'
+import {Store, store, Provider, useStore, withProvider} from '..'
 import {BarStore, FaaStore, FooStore} from './stores/foo.store'
 import {ShowBar, ShowFaa, ShowFoo} from './components/show-foo'
 
@@ -105,7 +105,7 @@ it('provider with auto-injected dependencies', function () {
 it('storeWillDestroy is called', function () {
   const mockStoreWillDestroy = jest.fn(() => null)
   
-  @injectable
+  @store
   class TestDestroyStore implements Store {
     storeWillDestroy = mockStoreWillDestroy
   }

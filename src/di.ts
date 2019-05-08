@@ -8,7 +8,3 @@ export function inject(target: Object, propertyKey: string | symbol, parameterIn
   injects.push(parameterIndex)
   Reflect.defineMetadata(injectMetadataKey, injects, target, propertyKey)
 }
-
-export function injectable<T extends {new(...args:any[]):{}}>(constructor: T) {
-  Reflect.defineMetadata(contextSymbol, React.createContext(null), constructor)
-}

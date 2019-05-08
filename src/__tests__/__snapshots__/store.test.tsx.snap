@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`provider initialize 1`] = `
+<div>
+  <button
+    id="btn"
+    onClick={[Function]}
+  />
+  this is foo
+</div>
+`;
+
+exports[`provider initialize 2`] = `
+<div>
+  <button
+    id="btn"
+    onClick={[Function]}
+  />
+  this is foo
+</div>
+`;

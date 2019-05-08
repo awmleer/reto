@@ -1,5 +1,5 @@
 import 'reflect-metadata'
-export {Store} from './store'
+export {Store, store} from './store'
 export {Consumer, useStore} from './context/consumer'
 export {Provider, ProviderProps, withProvider} from './context/provider'
-export {inject, injectable} from './di'
+export {inject} from './di'
