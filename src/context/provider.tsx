@@ -2,8 +2,6 @@ import * as React from 'react'
 import {ConstructorType, Store, contextSymbol} from '../store'
 import {FC, useContext, useEffect, useRef} from 'react'
 import {injectMetadataKey} from '../inject'
-import {Subscribable, Unsubscribable} from 'rxjs'
-import {effectsMetadataKey} from '../effect'
 
 export interface ProviderProps<T> {
   of: ConstructorType<T>
@@ -29,24 +27,24 @@ class StoreContainer {
     this.initialize()
   }
   
-  private effectSubscriptions: Unsubscribable[] = []
+  // private effectSubscriptions: Unsubscribable[] = []
   
   initialize() {
     if (!this._store) return
-    const effects: string[] = Reflect.getMetadata(effectsMetadataKey, this.storeType.prototype) || []
-    for (const effect of effects) {
-      const stream$ = (this._store as {[key: string]: Subscribable<any>})[effect]
-      const subscription = stream$.subscribe(doNothing)
-      this.effectSubscriptions.push(subscription)
-    }
+    // const effects: string[] = Reflect.getMetadata(effectsMetadataKey, this.storeType.prototype) || []
+    // for (const effect of effects) {
+    //   const stream$ = (this._store as {[key: string]: Subscribable<any>})[effect]
+    //   const subscription = stream$.subscribe(doNothing)
+    //   this.effectSubscriptions.push(subscription)
+    // }
   }
   
   cleanUp() {
     if (typeof this._store !== 'object') return
-    for (const subscription of this.effectSubscriptions) {
-      subscription.unsubscribe()
-    }
-    this.effectSubscriptions = []
+    // for (const subscription of this.effectSubscriptions) {
+    //   subscription.unsubscribe()
+    // }
+    // this.effectSubscriptions = []
     if (this._store.storeWillDestroy) {
       this._store.storeWillDestroy()
     }
@@ -75,16 +73,16 @@ export const Provider: FC<Props<any>> = function Provider<T>(props: Props<T>) {
   
   if (containerRef.current.storeType !== props.of) {
     containerRef.current.storeType = props.of
-    containerRef.current.injectable = new props.of(...props.args)
+    containerRef.current.store = new props.of(...props.args)
   }
   
   if (!containerRef.current.hasStore()) {
-    containerRef.current.injectable = new props.of(...props.args)
+    containerRef.current.store = new props.of(...props.args)
   }
   
   useEffect(() => {
     return () => {
-      containerRef.current.injectable = null
+      containerRef.current.store = null
     }
   }, [])
   
