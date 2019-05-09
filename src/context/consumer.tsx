@@ -1,26 +1,17 @@
 import * as React from 'react'
 import {ConstructorType, Store} from '../store'
-import {ReactNode, useEffect, useState} from 'react'
-import {contextSymbol, subscribersSymbol} from '../metadata-symbols'
+import {FC, ReactNode, useEffect, useState} from 'react'
+import {contextSymbol} from '../metadata-symbols'
 
-interface Props<T> {
-  of: ConstructorType<Store<T>>
+interface Props<T extends Store> {
+  of: ConstructorType<T>
   children: (store: T)=>ReactNode
 }
 
-// export class Consumer<T> extends React.Component<Props<T>, {}> {
-//   render() {
-//     const { of } = this.props
-//     const Context = Reflect.getMetadata(contextSymbol, of)
-//     return (
-//       <Context.Consumer>
-//         {(value: T) => (
-//           this.props.children(value)
-//         )}
-//       </Context.Consumer>
-//     )
-//   }
-// }
+export const Consumer: FC = function Consumer<T extends Store>(props: Props<T>) {
+  const store = useStore(props.of)
+  return this.props.children(store)
+}
 
 export function useStore<T extends Store<any>>(B: ConstructorType<T>): T {
   const Context = Reflect.getMetadata(contextSymbol, B)
@@ -30,11 +21,8 @@ export function useStore<T extends Store<any>>(B: ConstructorType<T>): T {
     function callback() {
       setState(store.state)
     }
-    // const subscribers = Reflect.getMetadata(subscribersSymbol, store) as Array<Function>
-    // subscribers.push(callback)
     store.subscribers.push(callback)
     return function() {
-      // subscribers.splice(subscribers.indexOf(callback), 1)
       store.subscribers.splice(store.subscribers.indexOf(callback), 1)
     }
   }, [store])
