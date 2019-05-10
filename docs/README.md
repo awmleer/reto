@@ -2,7 +2,15 @@
 
 简单而高效的React Store
 
-## 安装依赖
+## 特性
+
+- 基于React Context的依赖注入，简单但不失灵活
+- 基于[immer](https://github.com/immerjs/immer)的state变更操作，copy on write！
+- 强类型支持，但同时兼容js环境
+
+## 安装及配置
+
+### 安装依赖
 
 ```bash
 $ yarn add reto
@@ -10,7 +18,17 @@ $ yarn add reto
 $ npm install reto --save
 ```
 
-## 配置Typescript
+### 启用修饰器
+
+reto的使用需要用到修饰器语法，js和ts环境下的修饰器启用方法分别如下：
+
+#### JavaScript
+
+使用`@babel/plugin-proposal-decorators`：
+
+https://babeljs.io/docs/en/babel-plugin-proposal-decorators
+
+#### TypeScript
 
 在`tsconfig.json`中，加入如下配置：
 
@@ -18,7 +36,6 @@ $ npm install reto --save
 {
   "compilerOptions": {
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
     //...
   },
   //...
@@ -28,31 +45,40 @@ $ npm install reto --save
 ## 样例
 
 ```typescript
-interface State {
-  x: number
-} 
+@store
+export class FooStore extends Store {
+  state = {
+    counter: 1
+  }
+  resetCounter = () => {
+    this.mutate(draft => {
+      draft.counter = 0
+    })
+  }
+}
 
 @store
-export class FooStore extends Store<State> {
-  state = {
-    x: 1
-  }
+export class BarStore extends Store {
+  state = {}
+  @inject(FooStore) fooStore
 }
 ```
 
 ```jsx
-export const App: FC = (props) => {
-  const fooStore = useStore(FooStore)
+export const App = (props) => {
+  const barStore = useStore(BarStore)
+  const {fooStore} = barStore
   
-  function changeStore() {
-    fooStore.mutate(draft => {
-      draft.x++
+  function increase() {
+    fooStore.mutate(store => {
+      store.counter++
     })
   }
   return (
     <div>
-      <button onClick={changeStore}>Change</button>
-      {fooStore.state.x}
+      <button onClick={increase}>Increase</button>
+      <button onClick={fooStore.resetCounter}>Reset</button>
+      {fooStore.state.counter}
     </div>
   )
 }
@@ -60,7 +86,9 @@ export const App: FC = (props) => {
 
 ```jsx
 <Provider of={FooStore}>
-  <App/>
+  <Provider of={BarStore}>
+    <App/>
+  </Provider>
 </Provider>
 ```
 
