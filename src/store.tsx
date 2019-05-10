@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {contextSymbol, injectsSymbol} from './metadata-symbols'
+import {contextSymbol} from './metadata-symbols'
 import {createDraft, Draft, finishDraft} from 'immer'
 
 export type ConstructorType<T> = { new (...args: any[]): T }

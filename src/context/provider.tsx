@@ -2,7 +2,7 @@ import * as React from 'react'
 import {ConstructorType, Store} from '../store'
 import {FC, useContext, useEffect, useRef} from 'react'
 import {contextSymbol, injectsSymbol} from '../metadata-symbols'
-import {InjectionMark, InjectMark} from '../di'
+import {InjectMark} from '../di'
 
 export interface ProviderProps<T> {
   of: ConstructorType<Store<T>>
@@ -28,24 +28,12 @@ class StoreContainer {
     this.initialize()
   }
   
-  // private effectSubscriptions: Unsubscribable[] = []
-  
   initialize() {
     if (!this._store) return
-    // const effects: string[] = Reflect.getMetadata(effectsMetadataKey, this.storeType.prototype) || []
-    // for (const effect of effects) {
-    //   const stream$ = (this._store as {[key: string]: Subscribable<any>})[effect]
-    //   const subscription = stream$.subscribe(doNothing)
-    //   this.effectSubscriptions.push(subscription)
-    // }
   }
   
   cleanUp() {
     if (typeof this._store !== 'object') return
-    // for (const subscription of this.effectSubscriptions) {
-    //   subscription.unsubscribe()
-    // }
-    // this.effectSubscriptions = []
     if (this._store.storeWillDestroy) {
       this._store.storeWillDestroy()
     }
@@ -117,6 +105,3 @@ export function withProvider<P, T=any>(providerProps: ((props: P) => ProviderPro
     }
   }
 }
-
-
-function doNothing() {}
