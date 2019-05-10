@@ -1,7 +1,8 @@
 import * as React from 'react'
 import {ConstructorType, Store} from '../store'
 import {FC, useContext, useEffect, useRef} from 'react'
-import {contextSymbol, injectsSymbol, subscribersSymbol} from '../metadata-symbols'
+import {contextSymbol, injectsSymbol} from '../metadata-symbols'
+import {InjectionMark, InjectMark} from '../di'
 
 export interface ProviderProps<T> {
   of: ConstructorType<Store<T>>
@@ -55,27 +56,25 @@ class StoreContainer {
   }
 }
 
-function useInjections<T>(Store: ConstructorType<T>, args?: any[]) {
-  const injects = Reflect.getMetadata(injectsSymbol, Store) || []
-  const paramTypes = Reflect.getMetadata('design:paramtypes', Store) || []
+function useInjections<T extends Store>(store: Store) {
+  const injects: InjectMark[] = Reflect.getMetadata(injectsSymbol, store) || []
   for (let inject of injects) {
-    const Context = Reflect.getMetadata(contextSymbol, paramTypes[inject])
-    const injection = useContext(Context)
-    if (args) {
-      args[inject] = injection
-    }
+    (store as object as {
+      [key: string]: Store
+    })[inject.key] = useContext(inject.context)
   }
 }
 
-function createStore<T>(Store: ConstructorType<T>, args?: any[]) {
-  //FIXME
-  const store = new Store(...args)
+function createStore<T extends Store>(storeType: ConstructorType<T>, args?: any[]) {
+  const store = new storeType(...args)
+  // for (const injection of injections) {
+  //   store[injection.key] = injection.instance
+  // }
   return store
 }
 
 export const Provider: FC<Props<any>> = function Provider<T>(props: Props<T>) {
   const containerRef = useRef(new StoreContainer())
-  useInjections(props.of, props.args)
   
   if (containerRef.current.storeType !== props.of) {
     containerRef.current.storeType = props.of
@@ -85,6 +84,8 @@ export const Provider: FC<Props<any>> = function Provider<T>(props: Props<T>) {
   if (!containerRef.current.hasStore()) {
     containerRef.current.store = createStore(props.of, props.args)
   }
+  
+  useInjections(containerRef.current.store)
   
   useEffect(() => {
     return () => {

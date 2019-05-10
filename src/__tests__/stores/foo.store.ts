@@ -23,10 +23,6 @@ export class FaaStore extends Store<{}> {
 
 @store
 export class BarStore extends Store {
-  constructor(
-    @inject public fooStore: FooStore
-  ) {
-    super()
-  }
+  @inject(FooStore) fooStore: FooStore
 }
 
