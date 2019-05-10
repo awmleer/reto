@@ -13,6 +13,9 @@ export class Store<T extends {} = {}> {
     const draft = createDraft(this.state)
     f(draft)
     this.state = finishDraft(draft) as T
+    this.propagate()
+  }
+  propagate() {
     for (let subscriber of this.subscribers) {
       subscriber()
     }

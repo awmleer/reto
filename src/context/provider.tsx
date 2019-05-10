@@ -3,6 +3,7 @@ import {ConstructorType, Store} from '../store'
 import {FC, useContext, useEffect, useRef} from 'react'
 import {contextSymbol, injectsSymbol} from '../metadata-symbols'
 import {InjectMark} from '../di'
+import {useStoreUpdate} from './consumer'
 
 export interface ProviderProps<T> {
   of: ConstructorType<Store<T>>
@@ -44,12 +45,21 @@ class StoreContainer {
   }
 }
 
-function useInjections<T extends Store>(store: Store) {
+function useInjections(store: Store) {
   const injects: InjectMark[] = Reflect.getMetadata(injectsSymbol, store) || []
   for (let inject of injects) {
-    (store as object as {
-      [key: string]: Store
-    })[inject.key] = useContext(inject.context)
+    const injectedStore = useContext(inject.context)
+    Object.defineProperty(store, inject.key, {
+      value: injectedStore,
+      writable: false,
+    })
+    useEffect(() => {
+      const callback = store.propagate.bind(store)
+      injectedStore.subscribers.push(callback)
+      return function() {
+        injectedStore.subscribers.splice(injectedStore.subscribers.indexOf(callback), 1)
+      }
+    }, [injectedStore])
   }
 }
 
