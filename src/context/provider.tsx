@@ -3,7 +3,6 @@ import {ConstructorType, Store} from '../store'
 import {FC, useContext, useEffect, useRef} from 'react'
 import {contextSymbol, injectsSymbol} from '../metadata-symbols'
 import {InjectMark} from '../di'
-import {useStoreUpdate} from './consumer'
 
 export interface ProviderProps<T> {
   of: ConstructorType<Store<T>>
