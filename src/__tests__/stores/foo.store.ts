@@ -1,12 +1,14 @@
 import {store, inject, Store} from '../..'
 
-const defaultState = {
-  x: 1
+interface State {
+  x: number
 }
 
 @store
-export class FooStore extends Store<typeof defaultState> {
-  state = defaultState
+export class FooStore extends Store<State> {
+  state = {
+    x: 1
+  }
   foo: string = 'this is foo'
 }
 
