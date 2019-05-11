@@ -70,8 +70,8 @@ export const App = (props) => {
   const {fooStore} = barStore
   
   function increase() {
-    fooStore.mutate(store => {
-      store.counter++
+    fooStore.mutate(draft => {
+      draft.counter++
     })
   }
   return (

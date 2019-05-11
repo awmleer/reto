@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {contextSymbol} from './metadata-symbols'
-import {createDraft, Draft, finishDraft} from 'immer'
+import produce, {createDraft, Draft, finishDraft} from 'immer'
 
 export type ConstructorType<T> = { new (...args: any[]): T }
 export type StoreType<T extends Store = Store> = ConstructorType<T>
@@ -10,9 +10,7 @@ export class Store<T extends {} = {}> {
   // getters: {}
   storeWillDestroy?(): void
   mutate(f: (draft: Draft<T>) => void) {
-    const draft = createDraft(this.state)
-    f(draft)
-    this.state = finishDraft(draft) as T
+    this.state = produce(this.state, f)
     this.propagate()
   }
   propagate() {
