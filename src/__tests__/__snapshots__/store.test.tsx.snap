@@ -43,3 +43,11 @@ exports[`rerender on dependency update 2`] = `
   </div>
 </DocumentFragment>
 `;
+
+exports[`without decorator 1`] = `
+<DocumentFragment>
+  <div>
+    1
+  </div>
+</DocumentFragment>
+`;

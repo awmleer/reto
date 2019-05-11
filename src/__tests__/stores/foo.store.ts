@@ -26,3 +26,11 @@ export class BarStore extends Store {
   @inject(FooStore) fooStore: FooStore
 }
 
+export class BarWithoutDecoratorStore extends Store {
+  constructor() {
+    super()
+    inject(FooStore)(this, 'fooStore')
+  }
+  fooStore: FooStore
+}
+store(BarWithoutDecoratorStore)
