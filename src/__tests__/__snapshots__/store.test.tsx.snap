@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`mutate immediately 1`] = `
+<DocumentFragment>
+  <div>
+    2
+  </div>
+</DocumentFragment>
+`;
+
 exports[`provider initialize 1`] = `
 <DocumentFragment>
   <div>
