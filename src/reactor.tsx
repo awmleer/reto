@@ -2,11 +2,12 @@ import {memo} from 'react'
 
 interface Props {
   useStore: Function
+  args?: any[]
   onChange: (value: any) => void
 }
 
 export const Reactor = memo<Props>(function Reactor(props) {
-  const store = props.useStore()
+  const store = props.args ? props.useStore(...props.args) : props.useStore()
   props.onChange(store)
   return null
 })

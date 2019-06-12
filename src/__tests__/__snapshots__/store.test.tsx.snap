@@ -22,6 +22,28 @@ exports[`provider initialize 2`] = `
 </DocumentFragment>
 `;
 
+exports[`provider initialize with args 1`] = `
+<DocumentFragment>
+  <div>
+    <button>
+      Change
+    </button>
+    5
+  </div>
+</DocumentFragment>
+`;
+
+exports[`provider initialize with args 2`] = `
+<DocumentFragment>
+  <div>
+    <button>
+      Change
+    </button>
+    6
+  </div>
+</DocumentFragment>
+`;
+
 exports[`rerender on dependency update 1`] = `
 <DocumentFragment>
   <div>

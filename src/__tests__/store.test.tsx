@@ -10,7 +10,7 @@ test('provider initialize', function () {
     const fooStore = useStore(FooStore)
     
     function changeStore() {
-      fooStore.setX(2)
+      fooStore.setX(fooStore.x + 1)
     }
     return (
       <div>
@@ -21,6 +21,31 @@ test('provider initialize', function () {
   }
   const renderer = testing.render(
     <Provider of={FooStore}>
+      <App/>
+    </Provider>
+  )
+  expect(renderer.asFragment()).toMatchSnapshot()
+  testing.fireEvent.click(testing.getByText(renderer.container, 'Change'))
+  expect(renderer.asFragment()).toMatchSnapshot()
+})
+
+
+test('provider initialize with args', function () {
+  const App: FC = (props) => {
+    const fooStore = useStore(FooStore)
+    
+    function changeStore() {
+      fooStore.setX(fooStore.x + 1)
+    }
+    return (
+      <div>
+        <button onClick={changeStore}>Change</button>
+        {fooStore.x}
+      </div>
+    )
+  }
+  const renderer = testing.render(
+    <Provider of={FooStore} args={[5]}>
       <App/>
     </Provider>
   )

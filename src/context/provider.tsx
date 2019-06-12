@@ -37,7 +37,7 @@ export const Provider: FC<Props<any>> = function Provider<T>(props: Props<T>) {
   
   return (
     <Context.Provider value={store}>
-      <Reactor useStore={props.of} onChange={onReactorChange}/>
+      <Reactor useStore={props.of} args={props.args} onChange={onReactorChange}/>
       {store !== undefined && (
         <MemoChildren symbol={updateSymbolRef.current}>
           {props.children}
