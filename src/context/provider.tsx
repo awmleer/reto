@@ -1,7 +1,7 @@
 import * as React from 'react'
 import {FC, useCallback, useRef, useState} from 'react'
 import {contextSymbol} from '../metadata-symbols'
-import {Reactor} from '../reactor'
+import {StateBox} from '../state-box'
 import {MemoChildren} from '../memo-children'
 
 export interface ProviderProps<T> {
@@ -37,7 +37,7 @@ export const Provider: FC<Props<any>> = function Provider<T>(props: Props<T>) {
   
   return (
     <Context.Provider value={store}>
-      <Reactor useStore={props.of} args={props.args} onChange={onReactorChange}/>
+      <StateBox useStore={props.of} args={props.args} onChange={onReactorChange}/>
       {store !== undefined && (
         <MemoChildren symbol={updateSymbolRef.current}>
           {props.children}
