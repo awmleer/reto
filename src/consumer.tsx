@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {FC, ReactNode, useContext} from 'react'
-import {contextSymbol} from '../metadata-symbols'
+import {contextSymbol} from './metadata-symbols'
 
 interface Props<T> {
   of: () => T
@@ -14,5 +14,9 @@ export const Consumer: FC = function Consumer<T>(props: Props<T>) {
 
 export function useStore<T>(S: () => T) {
   const Context = Reflect.getMetadata(contextSymbol, S)
+  if (!Context) {
+    console.error(`No store context of "${S.name}" found. Did you provide it?`)
+    return null
+  }
   return useContext(Context) as T
 }

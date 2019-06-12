@@ -116,3 +116,25 @@ exports[`rerender on dependency update 2`] = `
   </div>
 </DocumentFragment>
 `;
+
+exports[`useStoreState 1`] = `
+<DocumentFragment>
+  <div>
+    <button>
+      Change
+    </button>
+    1
+  </div>
+</DocumentFragment>
+`;
+
+exports[`useStoreState 2`] = `
+<DocumentFragment>
+  <div>
+    <button>
+      Change
+    </button>
+    2
+  </div>
+</DocumentFragment>
+`;

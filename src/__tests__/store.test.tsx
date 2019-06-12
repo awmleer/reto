@@ -3,6 +3,7 @@ import {BarStore, FooStore} from './stores/foo.store'
 import * as React from 'react'
 import {FC, useState} from 'react'
 import * as testing from 'react-testing-library'
+import {useStoreState} from '../use-store-state'
 
 
 test('provider initialize', function () {
@@ -131,6 +132,44 @@ test('rerender on dependency update', function () {
   expect(renderer.asFragment()).toMatchSnapshot()
 })
 
+
+test('useStoreState', function () {
+  function TestStore() {
+    const [state, mutateState] = useStoreState({
+      x: {
+        y: 1
+      }
+    })
+    return {
+      state,
+      mutateState,
+    }
+  }
+  
+  const App: FC = (props) => {
+    const fooStore = useStore(TestStore)
+    
+    function changeStore() {
+      fooStore.mutateState(draft => {
+        draft.x.y = 2
+      })
+    }
+    return (
+      <div>
+        <button onClick={changeStore}>Change</button>
+        {fooStore.state.x.y}
+      </div>
+    )
+  }
+  const renderer = testing.render(
+    <Provider of={TestStore}>
+      <App/>
+    </Provider>
+  )
+  expect(renderer.asFragment()).toMatchSnapshot()
+  testing.fireEvent.click(testing.getByText(renderer.container, 'Change'))
+  expect(renderer.asFragment()).toMatchSnapshot()
+})
 
 // test('mutate immediately', async function () {
 //   @store
