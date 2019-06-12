@@ -1,4 +1,6 @@
+import {StoreContainer} from './src/container'
+
 export const shared = {
   creating: false,
-  currentStore: null as object,
+  currentContainer: null as StoreContainer,
 }
