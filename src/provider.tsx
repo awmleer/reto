@@ -3,9 +3,10 @@ import {FC, useCallback, useRef, useState} from 'react'
 import {contextSymbol} from './metadata-symbols'
 import {StateBox} from './state-box'
 import {MemoChildren} from './memo-children'
+import {Store} from './store'
 
 export interface ProviderProps<T> {
-  of: Function
+  of: Store<T>
   args?: any[]
 }
 
