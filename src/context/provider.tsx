@@ -1,8 +1,8 @@
 import * as React from 'react'
 import {ConstructorType, Store} from '../store'
-import {FC, useContext, useEffect, useRef} from 'react'
-import {contextSymbol, injectsSymbol} from '../metadata-symbols'
-import {InjectMark} from '../di'
+import {FC, useEffect, useRef} from 'react'
+import {contextSymbol} from '../metadata-symbols'
+import {shared} from '../../shared'
 
 export interface ProviderProps<T> {
   of: ConstructorType<Store<T>>
@@ -33,10 +33,7 @@ class StoreContainer {
   }
   
   cleanUp() {
-    if (typeof this._store !== 'object') return
-    if (this._store.storeWillDestroy) {
-      this._store.storeWillDestroy()
-    }
+    //TODO
   }
   
   hasStore() {
@@ -44,29 +41,11 @@ class StoreContainer {
   }
 }
 
-function useInjections(store: Store) {
-  const injects: InjectMark[] = Reflect.getMetadata(injectsSymbol, store) || []
-  for (let inject of injects) {
-    const injectedStore = useContext(inject.context)
-    Object.defineProperty(store, inject.key, {
-      value: injectedStore,
-      writable: false,
-    })
-    useEffect(() => {
-      const callback = store.propagate.bind(store)
-      injectedStore.subscribers.push(callback)
-      return function() {
-        injectedStore.subscribers.splice(injectedStore.subscribers.indexOf(callback), 1)
-      }
-    }, [injectedStore])
-  }
-}
 
-function createStore<T extends Store>(storeType: ConstructorType<T>, args?: any[]) {
-  const store = new storeType(...args)
-  // for (const injection of injections) {
-  //   store[injection.key] = injection.instance
-  // }
+function createStore<T extends Store>(storeType: Function, args?: any[]) {
+  shared.creating = true
+  const store = storeType(...args)
+  shared.creating = false
   return store
 }
 
@@ -82,15 +61,18 @@ export const Provider: FC<Props<any>> = function Provider<T>(props: Props<T>) {
     containerRef.current.store = createStore(props.of, props.args)
   }
   
-  useInjections(containerRef.current.store)
-  
   useEffect(() => {
     return () => {
       containerRef.current.store = null
     }
   }, [])
   
-  const Context = Reflect.getMetadata(contextSymbol, props.of)
+  let Context = Reflect.getMetadata(contextSymbol, props.of)
+  if (!Context) {
+    Context = React.createContext(null)
+    Reflect.defineMetadata(contextSymbol, Context, props.of)
+  }
+  
   return (
     <Context.Provider value={containerRef.current.store}>
       {props.children}

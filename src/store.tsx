@@ -19,9 +19,25 @@ export class Store<T extends {} = {}> {
     }
   }
   subscribers: Function[] = []
+  effects = [
+    {
+      handler: function () {
+      
+      },
+      deps: function () {
+      
+      }
+    }, {
+    },
+  ]
 }
 
 
 export function store<T extends {new(...args:any[]):{}}>(constructor: T) {
   Reflect.defineMetadata(contextSymbol, React.createContext(null), constructor)
 }
+
+
+// function useFunctionStore(Store: FunctionStore) {
+//   const state = Store.init()
+// }
