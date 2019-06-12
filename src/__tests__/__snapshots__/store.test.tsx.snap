@@ -1,5 +1,56 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`no extra render on children 1`] = `
+<DocumentFragment>
+  <div>
+    <button>
+      Change Parent
+    </button>
+    parent state: 1
+    <div>
+      <button>
+        Change Store
+      </button>
+      1
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`no extra render on children 2`] = `
+<DocumentFragment>
+  <div>
+    <button>
+      Change Parent
+    </button>
+    parent state: 1
+    <div>
+      <button>
+        Change Store
+      </button>
+      2
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`no extra render on children 3`] = `
+<DocumentFragment>
+  <div>
+    <button>
+      Change Parent
+    </button>
+    parent state: 2
+    <div>
+      <button>
+        Change Store
+      </button>
+      2
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`provider initialize 1`] = `
 <DocumentFragment>
   <div>

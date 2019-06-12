@@ -16,7 +16,7 @@ type Props<T> = ProviderProps<T> & {
 export const Provider: FC<Props<any>> = function Provider<T>(props: Props<T>) {
   const [store, setStore] = useState<any>(undefined)
   const updateSymbolRef = useRef(Symbol())
-  const updateRef = useRef(true)
+  const updateRef = useRef(false)
   
   if (updateRef.current) {
     updateSymbolRef.current = Symbol()

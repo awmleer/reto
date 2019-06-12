@@ -10,4 +10,4 @@ export const MemoChildren = memo<Props>(function MemoChildren(props) {
   return (
     <>{props.children}</>
   )
-})
+}, (prevProps, nextProps) => prevProps.symbol === nextProps.symbol)

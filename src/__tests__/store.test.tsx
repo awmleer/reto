@@ -1,7 +1,7 @@
 import {Provider, useStore} from '..'
 import {BarStore, FooStore} from './stores/foo.store'
 import * as React from 'react'
-import {FC} from 'react'
+import {FC, useState} from 'react'
 import * as testing from 'react-testing-library'
 
 
@@ -52,6 +52,56 @@ test('provider initialize with args', function () {
   expect(renderer.asFragment()).toMatchSnapshot()
   testing.fireEvent.click(testing.getByText(renderer.container, 'Change'))
   expect(renderer.asFragment()).toMatchSnapshot()
+})
+
+
+test('no extra render on children', function () {
+  const renderCount = {
+    a: 0,
+    b: 0,
+  }
+  
+  const Parent: FC = props => {
+    const [state, setState] = useState(1)
+    return (
+      <div>
+        <button onClick={() => setState(2)}>Change Parent</button>
+        parent state: {state}
+        <Provider of={FooStore}>
+          <ChildA/>
+          <ChildB/>
+        </Provider>
+      </div>
+    )
+  }
+  
+  const ChildA: FC = (props) => {
+    renderCount.a++
+    const fooStore = useStore(FooStore)
+    function changeStore() {
+      fooStore.setX(fooStore.x + 1)
+    }
+    return (
+      <div>
+        <button onClick={changeStore}>Change Store</button>
+        {fooStore.x}
+      </div>
+    )
+  }
+  const ChildB: FC = (props) => {
+    renderCount.b++
+    return null
+  }
+  const renderer = testing.render(
+    <Parent/>
+  )
+  expect(renderer.asFragment()).toMatchSnapshot()
+  testing.fireEvent.click(testing.getByText(renderer.container, 'Change Store'))
+  expect(renderer.asFragment()).toMatchSnapshot()
+  testing.fireEvent.click(testing.getByText(renderer.container, 'Change Parent'))
+  expect(renderer.asFragment()).toMatchSnapshot()
+  expect(renderCount.a).toBe(3)
+  expect(renderCount.b).toBe(2)
 })
 
 
