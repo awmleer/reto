@@ -1,13 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`mutate immediately 1`] = `
-<DocumentFragment>
-  <div>
-    2
-  </div>
-</DocumentFragment>
-`;
-
 exports[`provider initialize 1`] = `
 <DocumentFragment>
   <div>
@@ -47,15 +39,7 @@ exports[`rerender on dependency update 2`] = `
     <button>
       Change
     </button>
-    2
-  </div>
-</DocumentFragment>
-`;
-
-exports[`without decorator 1`] = `
-<DocumentFragment>
-  <div>
-    1
+    3
   </div>
 </DocumentFragment>
 `;

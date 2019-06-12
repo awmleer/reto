@@ -1,9 +1,8 @@
 import * as React from 'react'
-import {Store} from '../store'
-import {FC, useEffect, useRef} from 'react'
+import {FC, useCallback, useRef, useState} from 'react'
 import {contextSymbol} from '../metadata-symbols'
-import {shared} from '../../shared'
-import {StoreContainer} from '../container'
+import {Reactor} from '../reactor'
+import {MemoChildren} from '../memo-children'
 
 export interface ProviderProps<T> {
   of: Function
@@ -14,30 +13,16 @@ type Props<T> = ProviderProps<T> & {
   children: React.ReactNode
 }
 
-function createStore<T extends Store>(container: StoreContainer, storeType: Function, args?: any[]) {
-  shared.creating = true
-  shared.currentContainer = container
-  container.store = storeType(...args)
-  shared.creating = false
-}
-
 export const Provider: FC<Props<any>> = function Provider<T>(props: Props<T>) {
-  const containerRef = useRef(new StoreContainer())
+  const [store, setStore] = useState<any>(undefined)
+  const updateSymbolRef = useRef(Symbol())
+  const updateRef = useRef(true)
   
-  if (containerRef.current.storeType !== props.of) {
-    containerRef.current.storeType = props.of
-    createStore(containerRef.current, props.of, props.args)
+  if (updateRef.current) {
+    updateSymbolRef.current = Symbol()
+  } else {
+    updateRef.current = true
   }
-  
-  if (!containerRef.current.hasStore()) {
-    createStore(containerRef.current, props.of, props.args)
-  }
-  
-  useEffect(() => {
-    return () => {
-      containerRef.current.store = null
-    }
-  }, [])
   
   let Context = Reflect.getMetadata(contextSymbol, props.of)
   if (!Context) {
@@ -45,9 +30,19 @@ export const Provider: FC<Props<any>> = function Provider<T>(props: Props<T>) {
     Reflect.defineMetadata(contextSymbol, Context, props.of)
   }
   
+  const onReactorChange = useCallback(function (value) {
+    setStore(value)
+    updateRef.current = false
+  }, [props.of])
+  
   return (
-    <Context.Provider value={containerRef.current}>
-      {props.children}
+    <Context.Provider value={store}>
+      <Reactor useStore={props.of} onChange={onReactorChange}/>
+      {store !== undefined && (
+        <MemoChildren symbol={updateSymbolRef.current}>
+          {props.children}
+        </MemoChildren>
+      )}
     </Context.Provider>
   )
 }

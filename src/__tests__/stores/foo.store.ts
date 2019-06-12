@@ -1,36 +1,20 @@
-import {store, inject, Store} from '../..'
+import {useState} from 'react'
+import {useStore} from '../..'
 
-interface State {
-  x: number
-}
-
-@store
-export class FooStore extends Store<State> {
-  state = {
-    x: 1
-  }
-  foo: string = 'this is foo'
-}
-
-@store
-export class FaaStore extends Store<{}> {
-  constructor(
-    public faa: string = 'this is faa'
-  ) {
-    super()
+export function FooStore() {
+  const [x, setX] = useState(1)
+  return {
+    x,
+    setX
   }
 }
 
-@store
-export class BarStore extends Store {
-  @inject(FooStore) fooStore: FooStore
-}
-
-export class BarWithoutDecoratorStore extends Store {
-  constructor() {
-    super()
-    inject(FooStore)(this, 'fooStore')
+export function BarStore() {
+  const fooStore = useStore(FooStore)
+  const [x, setX] = useState(2)
+  return {
+    x,
+    setX,
+    fooStore,
   }
-  fooStore: FooStore
 }
-store(BarWithoutDecoratorStore)
