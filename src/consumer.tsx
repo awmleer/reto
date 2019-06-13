@@ -15,8 +15,10 @@ export const Consumer: FC = function Consumer<T>(props: Props<T>) {
 
 export function useStore<T>(S: Store<T>, optional?: boolean) {
   const Context = Reflect.getMetadata(contextSymbol, S)
-  if (!Context && !optional) {
-    console.error(`No store context of "${S.name}" found. Did you provide it?`)
+  if (!Context) {
+    if (!optional) {
+      console.error(`No store context of "${S.name}" found. Did you provide it?`)
+    }
     return null
   }
   return useContext(Context) as T
