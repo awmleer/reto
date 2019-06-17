@@ -34,7 +34,7 @@ export const Provider: FC<Props<any>> = function Provider<T>(props: Props<T>) {
   const onReactorChange = useCallback(function (value) {
     setStore(value)
     updateRef.current = false
-  }, [props.of])
+  }, [])
   
   return (
     <Context.Provider value={store}>

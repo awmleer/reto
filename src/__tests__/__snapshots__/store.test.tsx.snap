@@ -51,6 +51,23 @@ exports[`no extra render on children 3`] = `
 </DocumentFragment>
 `;
 
+exports[`no extra render on children 4`] = `
+<DocumentFragment>
+  <div>
+    <button>
+      Change Parent
+    </button>
+    parent state: 3
+    <div>
+      <button>
+        Change Store
+      </button>
+      2
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
 exports[`provider initialize 1`] = `
 <DocumentFragment>
   <div>
