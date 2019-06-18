@@ -6,7 +6,7 @@ interface Props {
   onChange: (value: any) => void
 }
 
-export const StateBox = memo<Props>(function Reactor(props) {
+export const StateBox = memo<Props>(function StateBox(props) {
   const store = props.args ? props.useStore(...props.args) : props.useStore()
   props.onChange(store)
   return null
