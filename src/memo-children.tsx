@@ -2,7 +2,7 @@ import {memo, ReactNode} from 'react'
 import * as React from 'react';
 
 interface Props {
-  symbol: Symbol
+  flag: {}
   children: ReactNode
 }
 
@@ -10,4 +10,4 @@ export const MemoChildren = memo<Props>(function MemoChildren(props) {
   return (
     <>{props.children}</>
   )
-}, (prevProps, nextProps) => prevProps.symbol === nextProps.symbol)
+}, (prevProps, nextProps) => prevProps.flag === nextProps.flag)

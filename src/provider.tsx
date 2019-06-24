@@ -16,11 +16,11 @@ type Props<T> = ProviderProps<T> & {
 
 export const Provider: FC<Props<any>> = function Provider<T>(props: Props<T>) {
   const [store, setStore] = useState<any>(undefined)
-  const updateSymbolRef = useRef(Symbol())
+  const updateFlagRef = useRef({})
   const updateRef = useRef(false)
   
   if (updateRef.current) {
-    updateSymbolRef.current = Symbol()
+    updateFlagRef.current = {}
   } else {
     updateRef.current = true
   }
@@ -40,7 +40,7 @@ export const Provider: FC<Props<any>> = function Provider<T>(props: Props<T>) {
     <Context.Provider value={store}>
       <StateBox useStore={props.of} args={props.args} onChange={onReactorChange}/>
       {store !== undefined && (
-        <MemoChildren symbol={updateSymbolRef.current}>
+        <MemoChildren flag={updateFlagRef.current}>
           {props.children}
         </MemoChildren>
       )}
