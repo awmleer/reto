@@ -3,6 +3,7 @@
   "version": "0.2.6",
   "main": "index.js",
   "repository": "https://github.com/awmleer/reto",
+  "description": "React store with hooks.",
   "author": "awmleer <awmleer@sparker.xyz>",
   "license": "MIT",
   "private": false,

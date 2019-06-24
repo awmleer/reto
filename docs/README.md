@@ -129,6 +129,10 @@ export function BarStore() {
 
 当Store变得非常复杂时，可以通过`useReducer`更好的组织逻辑。详见[文档](https://reactjs.org/docs/hooks-reference.html#usereducer)。
 
+### 使用useAsyncMemo
+
+[useAsyncMemo](https://github.com/awmleer/use-async-memo)非常适合用来处理异步的计算数据，例如在翻页（`pageNumber`变化）时调用API加载远程数据。
+
 ### 使用useAction
 
 由于`useEffect`是会延后执行的，因此在Reto中，[useAction](https://github.com/awmleer/use-action)是一个更适合的替代品。
