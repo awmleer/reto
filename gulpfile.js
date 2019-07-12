@@ -2,7 +2,7 @@ const gulp = require('gulp')
 const del = require('del')
 
 gulp.task('clean-lib', function (callback) {
-  del('lib')
+  del('lib/**')
   callback()
 })
 
