@@ -1,13 +1,13 @@
 const gulp = require('gulp')
-const clean = require('gulp-clean')
+const del = require('del')
 
-gulp.task('clean-lib', function () {
-  return gulp.src('lib', { read: false })
-    .pipe(clean())
+gulp.task('clean-lib', function (callback) {
+  del('lib')
+  callback()
 })
 
-gulp.task('prebuild', ['clean-lib'], function() {
+gulp.task('prebuild', gulp.series('clean-lib', function() {
   return gulp
     .src(['package.json', 'docs/README.md', 'LICENSE'])
     .pipe(gulp.dest('lib/'))
-})
+}))
