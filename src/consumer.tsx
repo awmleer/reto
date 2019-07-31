@@ -8,10 +8,10 @@ interface Props<T> {
   children: (store: T) => ReactNode
 }
 
-export const Consumer = function<T>(props: Props<T>) {
+export function Consumer<T>(props: Props<T>) {
   const store = useStore(props.of)
   return this.props.children(store)
-} as FC<Props<unknown>>
+}
 
 export function useStore<T>(S: Store<T>, optional?: boolean) {
   const Context = Reflect.getMetadata(contextSymbol, S)

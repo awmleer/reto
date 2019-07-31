@@ -1,4 +1,4 @@
-import {Provider, useStore} from '..'
+import {Consumer, Provider, useStore} from '..'
 import {BarStore, FooStore} from './stores/foo.store'
 import * as React from 'react'
 import {FC, useState} from 'react'
@@ -22,6 +22,33 @@ test('provider initialize', function () {
   const renderer = testing.render(
     <Provider of={FooStore}>
       <App/>
+    </Provider>
+  )
+  expect(renderer.asFragment()).toMatchSnapshot()
+  testing.fireEvent.click(testing.getByText(renderer.container, 'Change'))
+  expect(renderer.asFragment()).toMatchSnapshot()
+})
+
+
+test('Consumer', function () {
+  const App: FC = (props) => {
+    const fooStore = useStore(FooStore)
+
+    function changeStore() {
+      fooStore.setX(fooStore.x + 1)
+    }
+    return (
+      <div>
+        <button onClick={changeStore}>Change</button>
+        {fooStore.x}
+      </div>
+    )
+  }
+  const renderer = testing.render(
+    <Provider of={FooStore}>
+      <Consumer of={FooStore}>
+        {fooStore => fooStore.x}
+      </Consumer>
     </Provider>
   )
   expect(renderer.asFragment()).toMatchSnapshot()
