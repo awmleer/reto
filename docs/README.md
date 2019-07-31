@@ -177,3 +177,6 @@ export function FooStore() {
 
 当Store变得非常复杂时，可以通过`useReducer`更好的组织逻辑。详见[文档](https://reactjs.org/docs/hooks-reference.html#usereducer)。不过笔者并不非常推荐使用它，因为当组件变得过于庞大时，更好的办法是进行拆分。
 
+### 如何解决store频繁更新所导致的性能问题
+
+`useStore`在底层是使用的`useContext`，因此，关于这个问题的处理方案，可以参照[这里](https://github.com/facebook/react/issues/15156#issuecomment-474590693)。

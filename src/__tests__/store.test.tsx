@@ -3,13 +3,12 @@ import {BarStore, FooStore} from './stores/foo.store'
 import * as React from 'react'
 import {FC, useState} from 'react'
 import * as testing from 'react-testing-library'
-import {useStoreState} from '../use-store-state'
 
 
 test('provider initialize', function () {
   const App: FC = (props) => {
     const fooStore = useStore(FooStore)
-    
+
     function changeStore() {
       fooStore.setX(fooStore.x + 1)
     }
@@ -34,7 +33,7 @@ test('provider initialize', function () {
 test('provider initialize with args', function () {
   const App: FC = (props) => {
     const fooStore = useStore(FooStore)
-    
+
     function changeStore() {
       fooStore.setX(fooStore.x + 1)
     }
@@ -61,7 +60,7 @@ test('no extra render on children', function () {
     a: 0,
     b: 0,
   }
-  
+
   const Parent: FC = props => {
     const [state, setState] = useState(1)
     return (
@@ -75,7 +74,7 @@ test('no extra render on children', function () {
       </div>
     )
   }
-  
+
   const ChildA: FC = (props) => {
     renderCount.a++
     const fooStore = useStore(FooStore)
@@ -111,7 +110,7 @@ test('no extra render on children', function () {
 test('rerender on dependency update', function () {
   const App: FC = (props) => {
     const barStore = useStore(BarStore)
-    
+
     function changeStore() {
       barStore.fooStore.setX(3)
     }
@@ -134,44 +133,6 @@ test('rerender on dependency update', function () {
   expect(renderer.asFragment()).toMatchSnapshot()
 })
 
-
-test('useStoreState', function () {
-  function TestStore() {
-    const [state, mutateState] = useStoreState({
-      x: {
-        y: 1
-      }
-    })
-    return {
-      state,
-      mutateState,
-    }
-  }
-  
-  const App: FC = (props) => {
-    const fooStore = useStore(TestStore)
-    
-    function changeStore() {
-      fooStore.mutateState(draft => {
-        draft.x.y = 2
-      })
-    }
-    return (
-      <div>
-        <button onClick={changeStore}>Change</button>
-        {fooStore.state.x.y}
-      </div>
-    )
-  }
-  const renderer = testing.render(
-    <Provider of={TestStore}>
-      <App/>
-    </Provider>
-  )
-  expect(renderer.asFragment()).toMatchSnapshot()
-  testing.fireEvent.click(testing.getByText(renderer.container, 'Change'))
-  expect(renderer.asFragment()).toMatchSnapshot()
-})
 
 // test('mutate immediately', async function () {
 //   @store
