@@ -1,5 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Consumer 1`] = `
+<DocumentFragment>
+  1
+</DocumentFragment>
+`;
+
 exports[`no extra render on children 1`] = `
 <DocumentFragment>
   <div>
@@ -130,28 +136,6 @@ exports[`rerender on dependency update 2`] = `
       Change
     </button>
     3
-  </div>
-</DocumentFragment>
-`;
-
-exports[`useStoreState 1`] = `
-<DocumentFragment>
-  <div>
-    <button>
-      Change
-    </button>
-    1
-  </div>
-</DocumentFragment>
-`;
-
-exports[`useStoreState 2`] = `
-<DocumentFragment>
-  <div>
-    <button>
-      Change
-    </button>
-    2
   </div>
 </DocumentFragment>
 `;
