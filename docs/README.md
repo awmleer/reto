@@ -35,6 +35,10 @@ $ yarn add reto
 $ npm install reto --save
 ```
 
+## 在线体验
+
+[点此](https://stackblitz.com/edit/reto-demo)可以在线体验demo
+
 ## 一个简单的例子
 
 每一个`Store`其实就是一个类似于custom hook的函数。在`Store`的函数体中，你可以随意使用react hooks，例如`useState`、`useEffect`、`useRef`。
