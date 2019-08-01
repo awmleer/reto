@@ -1,5 +1,12 @@
 # Reto
 
+[![GitHub](https://img.shields.io/github/license/awmleer/reto.svg)](https://github.com/awmleer/reto)
+[![codecov](https://codecov.io/gh/awmleer/reto/branch/master/graph/badge.svg)](https://codecov.io/gh/awmleer/reto)
+[![npm](https://img.shields.io/npm/v/reto.svg)](https://www.npmjs.com/package/reto)
+[![npm](https://img.shields.io/npm/dw/reto.svg)](https://www.npmjs.com/package/reto)
+[![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/reto.svg)](https://www.npmjs.com/package/reto)
+[![Build Status](https://travis-ci.org/awmleer/reto.svg?branch=master)](https://travis-ci.org/awmleer/reto)
+
 ```
              ___                  __ 
             / _ \___    ___ _____/ /_
