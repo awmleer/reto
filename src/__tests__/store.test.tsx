@@ -1,8 +1,23 @@
-import {Consumer, Provider, useStore} from '..'
+import {Consumer, Provider, useStore, withProvider} from '..'
 import {BarStore, FooStore} from './stores/foo.store'
 import * as React from 'react'
 import {FC, useState} from 'react'
-import * as testing from 'react-testing-library'
+import * as testing from '@testing-library/react'
+
+
+// let originalConsole: typeof global.console
+// beforeEach(() => {
+//   const mocked = jest.fn()
+//   originalConsole = global.console
+//   global.console = {
+//     ...originalConsole,
+//     error: mocked
+//   }
+// })
+//
+// afterEach(() => {
+//   global.console = originalConsole
+// })
 
 
 test('provider initialize', function () {
@@ -26,6 +41,21 @@ test('provider initialize', function () {
   )
   expect(renderer.asFragment()).toMatchSnapshot()
   testing.fireEvent.click(testing.getByText(renderer.container, 'Change'))
+  expect(renderer.asFragment()).toMatchSnapshot()
+})
+
+
+test('withProvider', function () {
+  const App = withProvider({
+    of: FooStore,
+    args: [123]
+  })(function App() {
+    const fooStore = useStore(FooStore)
+    return <div>{fooStore.x}</div>
+  })
+  const renderer = testing.render(
+    <App/>
+  )
   expect(renderer.asFragment()).toMatchSnapshot()
 })
 
@@ -148,41 +178,26 @@ test('rerender on dependency update', function () {
 })
 
 
-// test('mutate immediately', async function () {
-//   @store
-//   class TestStore extends Store<{x: number}> {
-//     state = {
-//       x: 1
-//     }
-//     async testMutate() {
-//       await sleep(1)
-//       this.mutate(draft => {
-//         draft.x++
-//       })
-//     }
-//     constructor() {
-//       super()
-//       this.testMutate()
+// test('handle no context', function() {
+//   const originalError = console.error
+//   console.error = jest.fn()
+//
+//   global.console = {
+//     ...global.console,
+//     error: () => {
+//       console.log(1111111111)
 //     }
 //   }
 //
-//   const App: FC = (props) => {
-//     const testStore = useStore(TestStore)
-//     return (
-//       <div>
-//         {testStore.state.x}
-//       </div>
-//     )
+//   const App: FC = () => {
+//     const fooStore = useStore(FooStore)
+//     return null
 //   }
-//   let renderer: any
-//   act(() => {
-//     renderer = testing.render(
-//       <Provider of={TestStore}>
-//         <App/>
-//       </Provider>
-//     )
-//   })
+//   const renderer = testing.render(
+//     <App/>
+//   )
 //
-//   await sleep(20)
-//   expect(renderer.asFragment()).toMatchSnapshot()
+//   expect(console.error).toHaveBeenCalled()
+//
+//   console.error = originalError
 // })

@@ -15,6 +15,8 @@
     "test": "jest"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^4.0.0",
+    "@testing-library/react": "^8.0.7",
     "@types/jest": "24.x",
     "@types/node": "^10.12.24",
     "@types/react": "16.8.x",
@@ -23,11 +25,9 @@
     "del": "^5.0.0",
     "gulp": "^4.0.2",
     "jest": "24.x",
-    "jest-dom": "^3.0.2",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-test-renderer": "^16.8.0",
-    "react-testing-library": "7.x",
     "ts-jest": "24.x",
     "typescript": "3.3.x"
   },
