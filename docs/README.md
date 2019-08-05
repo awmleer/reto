@@ -6,6 +6,7 @@
 [![npm](https://img.shields.io/npm/dw/reto.svg)](https://www.npmjs.com/package/reto)
 [![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/reto.svg)](https://www.npmjs.com/package/reto)
 [![Build Status](https://travis-ci.org/awmleer/reto.svg?branch=master)](https://travis-ci.org/awmleer/reto)
+[![Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/reto)](https://app.snyk.io/test/github/awmleer/reto?targetFile=package.json)
 
 ```
              ___                  __ 
