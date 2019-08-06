@@ -1,13 +1,13 @@
 # Reto
 
-[![GitHub](https://img.shields.io/github/license/awmleer/reto.svg)](https://github.com/awmleer/reto)
-[![codecov](https://codecov.io/gh/awmleer/reto/branch/master/graph/badge.svg)](https://codecov.io/gh/awmleer/reto)
-[![npm](https://img.shields.io/npm/v/reto.svg)](https://www.npmjs.com/package/reto)
-[![npm](https://img.shields.io/npm/dw/reto.svg)](https://www.npmjs.com/package/reto)
-[![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/reto.svg)](https://www.npmjs.com/package/reto)
-[![Build Status](https://travis-ci.org/awmleer/reto.svg?branch=master)](https://travis-ci.org/awmleer/reto)
-[![codacy](https://img.shields.io/codacy/grade/2d15789ec7b1424092ed472f449a0a70)](https://app.codacy.com/app/awmleer/reto)
-[![Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/reto)](https://app.snyk.io/test/github/awmleer/reto?targetFile=package.json)
+[![GitHub](https://img.shields.io/github/license/awmleer/reto.svg?logo=github)](https://github.com/awmleer/reto)
+[![codecov](https://img.shields.io/codecov/c/github/awmleer/reto/master?logo=codecov)](https://codecov.io/gh/awmleer/reto)
+[![npm version](https://img.shields.io/npm/v/reto.svg?logo=npm)](https://www.npmjs.com/package/reto)
+[![npm downloads](https://img.shields.io/npm/dw/reto.svg?logo=npm)](https://www.npmjs.com/package/reto)
+[![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/reto.svg?logo=javascript)](https://www.npmjs.com/package/reto)
+[![Build Status](https://img.shields.io/travis/awmleer/reto/master?logo=travis-ci)](https://travis-ci.org/awmleer/reto)
+[![codacy](https://img.shields.io/codacy/grade/2d15789ec7b1424092ed472f449a0a70?logo=codacy)](https://app.codacy.com/app/awmleer/reto)
+[![Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/reto?logo=snyk)](https://app.snyk.io/test/github/awmleer/reto?targetFile=package.json)
 
 ```
              ___                  __ 

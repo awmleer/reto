@@ -1,1 +1,1 @@
-export type Store<T> = (...args: any[]) => T
+export type Store<T> = (...args: unknown[]) => T

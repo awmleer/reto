@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {FC, useCallback, useRef, useState} from 'react'
+import {forwardRef, MutableRefObject, useCallback, useRef, useState} from 'react'
 import {contextSymbol} from './symbols'
 import {StateBox} from './state-box'
 import {MemoChildren} from './memo-children'
@@ -7,7 +7,8 @@ import {Store} from './store'
 
 export interface ProviderProps<T> {
   of: Store<T>
-  args?: any[]
+  args?: unknown[]
+  ref?: MutableRefObject<T>
 }
 
 type Props<T> = ProviderProps<T> & {
@@ -16,7 +17,7 @@ type Props<T> = ProviderProps<T> & {
 
 const notInitialized = Symbol()
 
-export const Provider: FC<Props<any>> = function Provider<T>(props: Props<T>) {
+export const Provider = forwardRef(function Provider<T>(props: Props<T>, ref: MutableRefObject<T>) {
   const [store, setStore] = useState<any>(notInitialized)
   const updateFlagRef = useRef({})
   const updateRef = useRef(false)
@@ -35,6 +36,7 @@ export const Provider: FC<Props<any>> = function Provider<T>(props: Props<T>) {
 
   const onReactorChange = useCallback(function (value) {
     setStore(value)
+    if (ref) ref.current = value
     updateRef.current = false
   }, [])
 
@@ -48,7 +50,8 @@ export const Provider: FC<Props<any>> = function Provider<T>(props: Props<T>) {
       )}
     </Context.Provider>
   )
-}
+})
+
 Provider.defaultProps = {
   args: []
 }

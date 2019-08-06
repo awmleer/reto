@@ -192,6 +192,25 @@ test('handle return undefined from store function', () => {
   expect(renderer.asFragment()).toMatchSnapshot()
 })
 
+
+test('ref', function () {
+  function FooStore() {
+    return 'foo'
+  }
+  const storeRef = React.createRef()
+  const App = withProvider({
+    of: FooStore,
+    ref: storeRef
+  })(function App() {
+    const fooStore = useStore(FooStore)
+    return null
+  })
+  const renderer = testing.render(
+    <App/>
+  )
+  expect(storeRef.current).toBe('foo')
+})
+
 // test('handle no context', function() {
 //   const originalError = console.error
 //   console.error = jest.fn()
