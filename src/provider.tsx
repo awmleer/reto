@@ -14,32 +14,34 @@ type Props<T> = ProviderProps<T> & {
   children: React.ReactNode
 }
 
+const notInitialized = Symbol()
+
 export const Provider: FC<Props<any>> = function Provider<T>(props: Props<T>) {
-  const [store, setStore] = useState<any>(undefined)
+  const [store, setStore] = useState<any>(notInitialized)
   const updateFlagRef = useRef({})
   const updateRef = useRef(false)
-  
+
   if (updateRef.current) {
     updateFlagRef.current = {}
   } else {
     updateRef.current = true
   }
-  
+
   let Context = Reflect.getMetadata(contextSymbol, props.of)
   if (!Context) {
     Context = React.createContext(null)
     Reflect.defineMetadata(contextSymbol, Context, props.of)
   }
-  
+
   const onReactorChange = useCallback(function (value) {
     setStore(value)
     updateRef.current = false
   }, [])
-  
+
   return (
     <Context.Provider value={store}>
       <StateBox useStore={props.of} args={props.args} onChange={onReactorChange}/>
-      {store !== undefined && (
+      {store !== notInitialized && (
         <MemoChildren flag={updateFlagRef.current}>
           {props.children}
         </MemoChildren>

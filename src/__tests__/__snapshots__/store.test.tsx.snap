@@ -6,6 +6,14 @@ exports[`Consumer 1`] = `
 </DocumentFragment>
 `;
 
+exports[`handle return undefined from store function 1`] = `
+<DocumentFragment>
+  <div>
+    content
+  </div>
+</DocumentFragment>
+`;
+
 exports[`no extra render on children 1`] = `
 <DocumentFragment>
   <div>

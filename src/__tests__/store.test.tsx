@@ -178,6 +178,20 @@ test('rerender on dependency update', function () {
 })
 
 
+test('handle return undefined from store function', () => {
+  function FooStore() {}
+  const App = withProvider({
+    of: FooStore
+  })(function App() {
+    const fooStore = useStore(FooStore)
+    return <div>content</div>
+  })
+  const renderer = testing.render(
+    <App/>
+  )
+  expect(renderer.asFragment()).toMatchSnapshot()
+})
+
 // test('handle no context', function() {
 //   const originalError = console.error
 //   console.error = jest.fn()
