@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {FC, useCallback, useRef, useState} from 'react'
-import {contextSymbol} from './metadata-symbols'
+import {contextSymbol} from './symbols'
 import {StateBox} from './state-box'
 import {MemoChildren} from './memo-children'
 import {Store} from './store'

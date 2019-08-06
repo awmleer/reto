@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {ReactNode, useContext} from 'react'
-import {contextSymbol} from './metadata-symbols'
+import {contextSymbol} from './symbols'
 import {Store} from './store'
 import {ReactElement} from 'react'
 
