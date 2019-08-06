@@ -6,6 +6,7 @@
 [![npm](https://img.shields.io/npm/dw/reto.svg)](https://www.npmjs.com/package/reto)
 [![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/reto.svg)](https://www.npmjs.com/package/reto)
 [![Build Status](https://travis-ci.org/awmleer/reto.svg?branch=master)](https://travis-ci.org/awmleer/reto)
+[![codacy](https://img.shields.io/codacy/grade/2d15789ec7b1424092ed472f449a0a70)](https://app.codacy.com/app/awmleer/reto)
 [![Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/reto)](https://app.snyk.io/test/github/awmleer/reto?targetFile=package.json)
 
 ```
