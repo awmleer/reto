@@ -8,6 +8,7 @@
 [![Build Status](https://img.shields.io/travis/awmleer/reto/master?logo=travis-ci)](https://travis-ci.org/awmleer/reto)
 [![codacy](https://img.shields.io/codacy/grade/2d15789ec7b1424092ed472f449a0a70?logo=codacy)](https://app.codacy.com/app/awmleer/reto)
 [![Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/reto?logo=snyk)](https://app.snyk.io/test/github/awmleer/reto?targetFile=package.json)
+![React](https://img.shields.io/npm/dependency-version/reto/peer/react?logo=react)
 
 ```
              ___                  __ 
