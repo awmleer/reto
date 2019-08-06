@@ -6,12 +6,13 @@ before_install:
   - export PATH="$HOME/.yarn/bin:$PATH"
 install:
   - yarn install
+  - yarn global add codecov codacy-coverage
 script:
-  - yarn global add codecov
   - yarn test --coverage
   - yarn build
 after_success:
   - codecov
+  - cat ./coverage/lcov.info | codacy-coverage
 cache:
   yarn: true
   directories:
