@@ -1,4 +1,4 @@
-> **Flexible** and **efficient** React Store with hooks.
+> **Flexible** and **efficient** React store with hooks.
 
 ```
              ___                  __ 
