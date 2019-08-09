@@ -30,7 +30,7 @@
 - 基于React Context的依赖注入，简单但不失灵活
 - 强类型支持，但同时兼容js环境
 
-## Install
+## 安装
 
 ```bash
 $ yarn add reto
@@ -38,14 +38,13 @@ $ yarn add reto
 $ npm install reto --save
 ```
 
-## Try It Online
+## 在线体验
 
-Click [here](https://stackblitz.com/edit/reto-demo) to try it online.
+[点此](https://stackblitz.com/edit/reto-demo)可以在线体验demo
 
+## 一个简单的例子
 
-## A Simple Example
-
-Every `Store` is a function similar to custom hook. In the body of `Store` function, you can use any react hooks, for example, `useState`, `useEffect`, `useRef`.
+每一个`Store`其实就是一个类似于custom hook的函数。在`Store`的函数体中，你可以随意使用react hooks，例如`useState`、`useEffect`、`useRef`。
 
 ```jsx
 export function FooStore() {
@@ -57,21 +56,17 @@ export function FooStore() {
 }
 ```
 
-Then, you can provide a store "instance" using `Provider` component.
+通过`Provider`组件提供一个`FooStore`。
 
 ```jsx
-import {Provider} from 'reto'
-
 <Provider of={FooStore}>
   <App/>
 </Provider>
 ```
 
-By using the `useStore` hook, you can retrieve the store "instance" in components, and also, subscribe to its changes. 
+在组件中通过`useStore`获取并订阅`FooStore`的更新。
 
 ```jsx
-import {useStore} from 'reto'
-
 const App: FC = (props) => {
   const fooStore = useStore(FooStore)
   
@@ -87,8 +82,7 @@ const App: FC = (props) => {
 }
 ```
 
-So when you click the "Change" button, the `setX` function of `fooStore` is executed, thereby triggers the update of state `x` and the rerender of `App` component. Everything is simple and straightforward.
-
+当点击按钮时，会调用`fooStore`中的`setX`函数，从而触发`x`的更新以及`App`组件的重渲染，一切都非常简单而自然。
 
 ## 进阶用法
 
