@@ -1,14 +1,4 @@
-# Reto
-
-[![GitHub](https://img.shields.io/github/license/awmleer/reto.svg?logo=github)](https://github.com/awmleer/reto)
-[![codecov](https://img.shields.io/codecov/c/github/awmleer/reto/master?logo=codecov)](https://codecov.io/gh/awmleer/reto)
-[![npm version](https://img.shields.io/npm/v/reto.svg?logo=npm)](https://www.npmjs.com/package/reto)
-[![npm downloads](https://img.shields.io/npm/dw/reto.svg?logo=npm)](https://www.npmjs.com/package/reto)
-[![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/reto.svg?logo=javascript)](https://www.npmjs.com/package/reto)
-[![Build Status](https://img.shields.io/travis/awmleer/reto/master?logo=travis-ci)](https://travis-ci.org/awmleer/reto)
-[![codacy](https://img.shields.io/codacy/grade/2d15789ec7b1424092ed472f449a0a70?logo=codacy)](https://app.codacy.com/app/awmleer/reto)
-[![Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/npm/reto?logo=snyk)](https://app.snyk.io/test/github/awmleer/reto?targetFile=package.json)
-![React](https://img.shields.io/npm/dependency-version/reto/peer/react?logo=react)
+Flexible and efficient React Store with hooks.
 
 ```
              ___                  __ 
@@ -21,8 +11,6 @@
                                      
 ```
 
-Flexible and efficient React Store with hooks.
-
 ## Features
 
 - Supports all react hooks. Writing a store is just like writing a component.
@@ -30,10 +18,6 @@ Flexible and efficient React Store with hooks.
 - Use multiple stores to organize your data.
 - Dependency injection based on React Context.
 - Strongly typed with Typescript, also works well with JS.
-
-## Docs
-
-[English](https://awmleer.github.io/reto/#/) [中文](https://awmleer.github.io/reto/#/zh-cn/)
 
 ## Install
 
@@ -46,6 +30,7 @@ $ npm install reto --save
 ## Try It Online
 
 Click [here](https://stackblitz.com/edit/reto-demo) to try it online.
+
 
 ## A Simple Example
 
