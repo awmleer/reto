@@ -1,7 +1,7 @@
 import {Consumer, Provider, useStore, withProvider} from '..'
 import {BarStore, FooStore} from './stores/foo.store'
 import * as React from 'react'
-import {FC, useState} from 'react'
+import {FC, useImperativeHandle, useState} from 'react'
 import * as testing from '@testing-library/react'
 
 
@@ -209,6 +209,25 @@ test('ref', function () {
     <App/>
   )
   expect(storeRef.current).toBe('foo')
+})
+
+
+test('withProvider forwardRef', function() {
+  function FooStore() {
+    return 'foo'
+  }
+  const ref = React.createRef()
+  const App = withProvider({
+    of: FooStore
+  })(function App(props, ref) {
+    useImperativeHandle(ref, () => '')
+    const fooStore = useStore(FooStore)
+    return null
+  })
+  const renderer = testing.render(
+    <App ref={ref}/>
+  )
+  expect(ref.current).toBe('foo')
 })
 
 // test('handle no context', function() {

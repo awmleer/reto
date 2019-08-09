@@ -1,5 +1,13 @@
 import * as React from 'react'
-import {forwardRef, MutableRefObject, useCallback, useRef, useState} from 'react'
+import {
+  forwardRef,
+  ForwardRefExoticComponent,
+  MutableRefObject,
+  RefForwardingComponent,
+  useCallback,
+  useRef,
+  useState,
+} from 'react'
 import {contextSymbol} from './symbols'
 import {StateBox} from './state-box'
 import {MemoChildren} from './memo-children'
@@ -57,15 +65,15 @@ Provider.defaultProps = {
 }
 
 
-export function withProvider<P, T=any>(providerProps: ((props: P) => ProviderProps<T>) | ProviderProps<T>) {
-  return function (C: React.ComponentType<P>): React.ComponentType<P> {
-    return function WithProvider(props: P) {
+export function withProvider<P, T=unknown, R=unknown>(providerProps: ((props: P) => ProviderProps<T>) | ProviderProps<T>) {
+  return function (C: React.ComponentType<P>) {
+    return forwardRef<R, P>(function WithProvider(props, ref) {
       const finalProviderProps = typeof providerProps === 'function' ? providerProps(props) : providerProps
       return (
         <Provider {...finalProviderProps}>
-          <C {...props} />
+          <C {...props} ref={ref}/>
         </Provider>
       )
-    }
+    })
   }
 }
