@@ -1,6 +1,6 @@
 # Reto <small>0.3.0</small>
 
-> Flexible and efficient React Store with hooks.
+> Flexible and efficient React store with hooks.
 
 - Supports all react hooks. Writing a store is just like writing a component.
 - Simple but efficient, quite easy to learn.

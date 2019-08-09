@@ -13,3 +13,7 @@ No, Reto is very very simple and small.
 ## Can I use Reto in a TypeScript project?
 
 Of course. Reto itself is written in TypeScript.
+
+## Can I use Reto with React 16.7 or lower?
+
+Sorry you can't. Reto is based on the "hooks" feature which is introduced in React 16.8. So if you want to use Reto, you need to upgrade React to 16.8 or higher.
