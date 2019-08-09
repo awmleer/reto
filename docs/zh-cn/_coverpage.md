@@ -10,4 +10,4 @@
 
 [GitHub](https://github.com/awmleer/reto/)
 [English](/)
-[开始使用](/zh-cn/get-started)
+[快速上手](/zh-cn/get-started)

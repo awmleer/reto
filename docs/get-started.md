@@ -19,6 +19,14 @@ Flexible and efficient React Store with hooks.
 - Dependency injection based on React Context.
 - Strongly typed with Typescript, also works well with JS.
 
+## Try It Online
+
+Click [here](https://stackblitz.com/edit/reto-demo) to try it online.
+
+## FAQ
+
+[Here](faq.md) are some frequently asked questions.
+
 ## Install
 
 ```bash
@@ -26,11 +34,6 @@ $ yarn add reto
 # or
 $ npm install reto --save
 ```
-
-## Try It Online
-
-Click [here](https://stackblitz.com/edit/reto-demo) to try it online.
-
 
 ## A Simple Example
 
