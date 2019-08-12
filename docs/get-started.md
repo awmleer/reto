@@ -13,8 +13,8 @@
 
 ## Features
 
-- Supports all react hooks. Writing a store is just like writing a component.
-- Simple but efficient, quite easy to learn.
+- Supports all React hooks. Writing a store is just like writing a custom hook.
+- Simple but efficient, learn in 10 minutes.
 - Use multiple stores to organize your data.
 - Dependency injection based on React Context.
 - Strongly typed with Typescript, also works well with JS.

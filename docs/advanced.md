@@ -47,6 +47,28 @@ export function BarStore() {
 
 In the mean while, Reto will know `FooStore` is the dependency of BarStore. So whenever `FooStore` updates, `BarStore` will update too. 
 
+
+## Use in Class Components
+
+Even though Reto itself is written with hooks, it is still supported to use Reto in class components. You may wonder how to use `useStore` in class components. The answer is: No, you can't. But, there is an substitute for `useStore`, which is `Consumer` component:
+
+```jsx
+import {Consumer} from 'reto'
+
+export class App extends Component {
+  render() {
+    return (
+      <Consumer of={FooStore}>
+        {fooStore => (
+          fooStore.x
+        )}
+      </Consumer>
+    )
+  }
+}
+```
+
+
 ## How to Solve the Performance Issue
 
 If a store is too big or it updates too frequently, there may be a performance issue.

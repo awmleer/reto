@@ -14,11 +14,19 @@
 
 ## 特性
 
-- 使用各种react hooks定义store，你熟悉的useState、useEffect都在这里
-- 简单但高效，极低的学习成本
-- 可定义多个store，随用随取
-- 基于React Context的依赖注入，简单但不失灵活
+- 支持全部的React Hooks，写Store就像写Custom Hook
+- 简单但高效，10分钟快速上手
+- 从此告别单一状态树，可定义多个store，随用随取
+- 基于React Context的依赖注入
 - 强类型支持，但同时兼容js环境
+
+## 在线体验
+
+[点此](https://stackblitz.com/edit/reto-demo)可以在线体验demo。
+
+## 常见问题
+
+[这里](https://)是一些常见的问题。
 
 ## 安装
 
@@ -27,10 +35,6 @@ $ yarn add reto
 # or
 $ npm install reto --save
 ```
-
-## 在线体验
-
-[点此](https://stackblitz.com/edit/reto-demo)可以在线体验demo
 
 ## 一个简单的例子
 
