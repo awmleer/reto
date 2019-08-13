@@ -1,23 +1,23 @@
-## Is it another "redux"?
+## Reto是hooks版本的redux么？
 
-No. Reto is the replacement for redux and redux-saga. It does the same thing as they do (building app's model layer), but in a more flexible and efficient way.
+不是，Reto是redux和redux-saga的替代品。它在工程项目中做的事情和redux一样（构建应用的模型层），但是它所采用的方案却更为灵活高效。
 
-## Can I use Reto in production?
+## 我可以在生产环境中使用Reto么？
 
-Yes. Currently we are using Reto in a product at Alibaba.
+是的，笔者所在的一个阿里巴巴的项目组目前就在使用Reto。
 
-## Will Reto increase my bundle size significantly?
+## Reto会明显增大应用的打包体积么？
 
-No. Reto is very very simple and small.
+不会的，Reto非常的简单轻量。
 
-## Can I use Reto in a TypeScript project?
+## 我可以在TypeScript的项目中使用Reto么？
 
-Of course. Reto itself is written in TypeScript.
+当然可以，Reto本身就是用TypeScript写的。
 
-## Can I use Reto with React 16.7 or lower?
+## 我可以在React 16.7及以下的环境中使用Reto么？
 
-Sorry you can't. Reto is based on the "hooks" feature which is introduced in React 16.8. So if you want to use Reto, you need to upgrade React to 16.8 or higher.
+不可以。。Reto基于React 16.8新发布的"hooks"特性，所以如果你想使用Reto，你需要先将React升级到16.8或者更高。
 
-## I don't write function components, can I use Reto?
+## 我不写函数组件，那我还可以使用Reto么？
 
-Yes. Reto is compatible with class components. You can only use hooks in your stores.
+可以，Reto和类组件是兼容的。你可以只在store中使用hooks。

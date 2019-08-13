@@ -49,7 +49,7 @@ export function BarStore() {
 
 ## 在类组件中使用
 
-Even though Reto itself is written with hooks, it is still supported to use Reto in class components. You may wonder how to use `useStore` in class components. The answer is: No, you can't. But, there is an substitute for `useStore`, which is `Consumer` component:
+虽然Reto自身是通过hooks实现的，但是也是支持在类组件中使用的。显然，我们不能在类组件中使用`useStore`，但是Reto提供了可以在类组件中使用的`Consumer`：
 
 ```jsx
 import {Consumer} from 'reto'
