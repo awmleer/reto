@@ -1,14 +1,13 @@
 import * as React from 'react'
 import {ReactNode, useContext} from 'react'
-import {contextSymbol} from './symbols'
-import {Store} from './store'
 import {ReactElement} from 'react'
+import {Store} from './store'
+import {contextSymbol} from './symbols'
 
 interface Props<T> {
   of: Store<T>
   children: (store: T) => ReactNode
 }
-
 
 export function Consumer<T>(props: Props<T>) {
   const store = useStore(props.of)

@@ -1,7 +1,8 @@
 import {memo} from 'react'
+import {Store} from './store'
 
 interface Props {
-  useStore: Function
+  useStore: Store<unknown>
   args?: any[]
   onChange: (value: any) => void
 }

@@ -1,9 +1,9 @@
 import * as React from 'react'
 import {forwardRef, MutableRefObject, useCallback, useRef, useState} from 'react'
-import {contextSymbol} from './symbols'
-import {StateBox} from './state-box'
 import {MemoChildren} from './memo-children'
+import {StateBox} from './state-box'
 import {Store} from './store'
+import {contextSymbol} from './symbols'
 
 export interface ProviderProps<T> {
   of: Store<T>
@@ -12,7 +12,7 @@ export interface ProviderProps<T> {
 }
 
 type Props<T> = ProviderProps<T> & {
-  children: React.ReactNode
+  children: React.ReactNode,
 }
 
 const notInitialized = Symbol()
@@ -34,9 +34,9 @@ export const Provider = forwardRef(function Provider<T>(props: Props<T>, ref: Mu
     Reflect.defineMetadata(contextSymbol, Context, props.of)
   }
 
-  const onReactorChange = useCallback(function (value) {
+  const onReactorChange = useCallback(function(value) {
     setStore(value)
-    if (ref) ref.current = value
+    if (ref) { ref.current = value }
     updateRef.current = false
   }, [])
 
@@ -53,12 +53,11 @@ export const Provider = forwardRef(function Provider<T>(props: Props<T>, ref: Mu
 })
 
 Provider.defaultProps = {
-  args: []
+  args: [],
 }
 
-
-export function withProvider<P, T=any>(providerProps: ((props: P) => ProviderProps<T>) | ProviderProps<T>) {
-  return function (C: React.ComponentType<P>): React.ComponentType<P> {
+export function withProvider<P, T= any>(providerProps: ((props: P) => ProviderProps<T>) | ProviderProps<T>) {
+  return function(C: React.ComponentType<P>): React.ComponentType<P> {
     return function WithProvider(props: P) {
       const finalProviderProps = typeof providerProps === 'function' ? providerProps(props) : providerProps
       return (

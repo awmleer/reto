@@ -12,7 +12,8 @@
   },
   "scripts": {
     "build": "gulp prebuild && tsc",
-    "test": "jest"
+    "test": "jest",
+    "lint": "tslint -p tsconfig.json"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^4.0.0",
@@ -29,6 +30,7 @@
     "react-dom": "^16.8.0",
     "react-test-renderer": "^16.8.0",
     "ts-jest": "24.x",
+    "tslint": "^5.18.0",
     "typescript": "3.3.x"
   },
   "dependencies": {
