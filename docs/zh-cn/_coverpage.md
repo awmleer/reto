@@ -8,3 +8,5 @@
 [GitHub](https://github.com/awmleer/reto/)
 [English](/)
 [快速上手](./get-started.md)
+
+![](https://images.unsplash.com/photo-1529700215145-58542a1f36b6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1949&q=80)

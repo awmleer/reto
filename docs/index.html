@@ -24,7 +24,17 @@
     subMaxLevel: 2,
     autoHeader: true,
     ga: 'UA-145399271-1',
-    search: 'auto',
+    search: {
+      placeholder: {
+        '/zh-cn/': '搜索',
+        '/': 'Type to search'
+      },
+      noData: {
+        '/zh-cn/': '找不到结果',
+        '/': 'No Results'
+      },
+      namespace: 'reto',
+    },
     auto2top: true,
     themeColor: '#3f51b5',
     relativePath: true,
