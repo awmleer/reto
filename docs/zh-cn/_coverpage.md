@@ -7,4 +7,4 @@
 
 [GitHub](https://github.com/awmleer/reto/)
 [English](/)
-[快速上手](/zh-cn/get-started)
+[快速上手](./get-started.md)
