@@ -47,6 +47,55 @@ export function BarStore() {
 
 同时，Reto会将其作为本Store的依赖。因此，当`FooStore`更新时，`BarStore`也会自动跟着更新。
 
+## withProvider
+
+有时，我们需要在一个组件中"同时"提供和使用某个store，例如：
+
+```jsx
+export function App(props) {
+  const fooStore = useStore(FooStore) // ⚠️在这里拿不到fooStore
+  return (
+    <Provider of={FooStore}>
+      <p>{fooStore.x}</p>
+    </Provider>
+  )
+}
+```
+
+我们希望在`App`组件中创建`FooStore`的`Provider`，但又同时想在`App`组件中`useStore(FooStore)`。这时，我们可以使用`withProvider`：
+
+```jsx
+export const App = withProvider({
+  of: FooStore
+})((props) => {
+  const fooStore = useStore(FooStore) // 🎉可以正常获取到fooStore了
+  return (
+    <p>{fooStore.x}</p>
+  )
+})
+```
+
+`withProvider`分为两层，你需要先传给它Provider的属性（将jsx中Provider的props写成object的形式），然后再传给它你想要加工的组件。
+
+```jsx
+withProvider({
+  of: FooStore,
+  args: [42, 'abc'],
+})(YourComponent)
+```
+
+当然，你还可以基于`withProvider`创建自己的高阶组件：
+
+```js
+const provideFooStore = withProvider({
+  of: FooStore
+})
+
+export const App = provideFooStore((props) => {
+  //...
+})
+```
+
 ## 在类组件中使用
 
 虽然Reto自身是通过hooks实现的，但是也是支持在类组件中使用的。显然，我们不能在类组件中使用`useStore`，但是Reto提供了可以在类组件中使用的`Consumer`：

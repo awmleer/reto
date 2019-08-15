@@ -47,6 +47,54 @@ export function BarStore() {
 
 In the mean while, Reto will know `FooStore` is the dependency of BarStore. So whenever `FooStore` updates, `BarStore` will update too. 
 
+## withProvider
+
+Sometimes we need to use a store in the same component that provides it, for example:
+
+```jsx
+export function App(props) {
+  const fooStore = useStore(FooStore) // ⚠️Can't get fooStore here
+  return (
+    <Provider of={FooStore}>
+      <p>{fooStore.x}</p>
+    </Provider>
+  )
+}
+```
+
+We hope to create a `Provider` of `FooStore` in `App` component, and call `useStore(FooStore)` in it at the same time. OK, we got `withProvider` for you:
+
+```jsx
+export const App = withProvider({
+  of: FooStore
+})((props) => {
+  const fooStore = useStore(FooStore) // 🎉 Now we can get fooStore here
+  return (
+    <p>{fooStore.x}</p>
+  )
+})
+```
+
+`withProvider` is a HOC(Higher-Order Component). First, we pass a props object to it(just like what we do in jsx, but in the format of object). And then we pass our component to it.
+
+```jsx
+withProvider({
+  of: FooStore,
+  args: [42, 'abc'],
+})(YourComponent)
+```
+
+当然，你还可以基于`withProvider`创建自己的高阶组件：
+
+```js
+const provideFooStore = withProvider({
+  of: FooStore
+})
+
+export const App = provideFooStore((props) => {
+  //...
+})
+```
 
 ## Use in Class Components
 
