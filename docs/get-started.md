@@ -37,7 +37,7 @@ $ npm install reto --save
 
 ## A Simple Example
 
-Every `Store` is a function similar to custom hook. In the body of `Store` function, you can use any react hooks, for example, `useState`, `useEffect`, `useRef`.
+Every `Store` is a function similar to a custom hook. In the body of a `Store` function, you can use any react hooks, for example, `useState`, `useEffect`, `useRef`.
 
 ```jsx
 export function FooStore() {
@@ -59,7 +59,7 @@ import {Provider} from 'reto'
 </Provider>
 ```
 
-By using the `useStore` hook, you can retrieve the store "instance" in components, and also, subscribe to its changes. 
+By using the `useStore` hook, you can retrieve the store "instance" in components, and subscribe to its changes. 
 
 ```jsx
 import {useStore} from 'reto'
