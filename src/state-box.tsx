@@ -18,7 +18,7 @@ export const StateBox = memo<Props>(function StateBox(props) {
   if (prevProps.args.length !== nextProps.args.length) {
     return false
   }
-  for (let index in nextProps.args) {
+  for (const index in nextProps.args) {
     if (prevProps.args[index] !== nextProps.args[index]) {
       return false
     }
