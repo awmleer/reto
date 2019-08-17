@@ -1,4 +1,4 @@
-# Reto <small>0.3.0</small>
+# Reto <small>0.3.1</small>
 
 > Flexible and efficient React store with hooks.
 
