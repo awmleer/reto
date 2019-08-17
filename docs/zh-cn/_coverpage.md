@@ -1,4 +1,4 @@
-# Reto <small>0.3.1</small>
+# Reto
 
 > 基于hooks的React Store，灵活而高效。
 
