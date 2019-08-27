@@ -33,7 +33,7 @@ Flexible and efficient React Store with hooks.
 
 ## Docs
 
-[English](https://awmleer.github.io/reto/#/) | [中文](https://awmleer.github.io/reto/#/zh-cn/)
+[English](https://reto.js.org/#/) | [中文](https://reto.js.org/#/zh-cn/)
 
 ## Install
 
