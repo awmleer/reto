@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {forwardRef, MutableRefObject, useCallback, useRef, useState} from 'react'
+import {forwardRef, MutableRefObject, RefForwardingComponent, useCallback, useRef, useState} from 'react'
 import {MemoChildren} from './memo-children'
 import {StateBox} from './state-box'
 import {Store} from './store'
@@ -12,7 +12,7 @@ export interface ProviderProps<T> {
 }
 
 type Props<T> = ProviderProps<T> & {
-  children: React.ReactNode,
+  children: React.ReactNode
 }
 
 const notInitialized = Symbol()
