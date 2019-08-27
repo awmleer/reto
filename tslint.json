@@ -6,7 +6,9 @@
   "jsRules": {},
   "rules": {
     "semicolon": [true, "never"],
-    "trailing-comma": [true, {"multiline": "always", "singleline": "never"}],
+    "trailing-comma": [true, {"multiline": {
+      "typeLiterals": "never"
+    }, "singleline": "never"}],
     "quotemark": [true, "single"],
     "interface-name": false,
     "no-console": false,
