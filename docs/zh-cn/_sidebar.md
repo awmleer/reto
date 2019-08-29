@@ -1,4 +1,5 @@
 * [快速上手](./get-started.md)
-* [常见问题](./faq.md)
+* [使用指南](./guide.md)
 * [进阶用法](./advanced.md)
+* [常见问题](./faq.md)
 * [第三方库](./third-party-libraries.md)

@@ -23,10 +23,10 @@ export function FooStore(initial = 1) {
 Reto uses React's Context API under the hood. Thereby, you can create a hierarchical store tree.
 
 ```
-- Provider of FooStore -> mark as instance A
-  |- Cosumer of FooStore -> we got instance A
-  |- Provider of FooStore -> mark as instance B
-     |- Consumer of FooStore -> we got instance B
+─ Provider of FooStore -> mark as instance A
+  ├─ Cosumer of FooStore -> we got instance A
+  └─ Provider of FooStore -> mark as instance B
+     └─ Consumer of FooStore -> we got instance B
 ```
 
 ## Dependencies Between Stores

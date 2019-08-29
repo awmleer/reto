@@ -18,35 +18,6 @@ export function FooStore(initial = 1) {
 </Provider>
 ```
 
-## 多层级的Store树
-
-Reto在底层使用的是React的context API，因此可以创建出多层级的Store树。
-
-```
-- Provider of FooStore -> 记为实例A
-  |- Cosumer of FooStore -> 拿到的是实例A
-  |- Provider of FooStore -> 记为实例B
-     |- Consumer of FooStore -> 拿到的是实例B
-```
-
-## Store之间的依赖
-
-你可以在一个Store的函数体中使用`useStore`来引入另一个Store：
-
-```jsx
-export function BarStore() {
-  const fooStore = useStore(FooStore)
-  const [x, setX] = useState(2)
-  return {
-    x,
-    setX,
-    fooStore,
-  }
-}
-```
-
-同时，Reto会将其作为本Store的依赖。因此，当`FooStore`更新时，`BarStore`也会自动跟着更新。
-
 ## withProvider
 
 有时，我们需要在一个组件中"同时"提供和使用某个store，例如：

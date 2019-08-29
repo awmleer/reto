@@ -40,11 +40,20 @@ $ npm install reto --save
 Every `Store` is a function similar to a custom hook. In the body of a `Store` function, you can use any react hooks, for example, `useState`, `useEffect`, `useRef`.
 
 ```jsx
-export function FooStore() {
-  const [x, setX] = useState(initial)
+export function CounterStore() {
+  const [count, setCount] = useState(1)
+  
+  useEffect(() => {
+    console.log('x is updated.')
+  }, [count])
+
+  function increase() {
+    setCount(count + 1)
+  }
+  
   return {
-    x,
-    setX
+    count,
+    increase,
   }
 }
 ```
@@ -54,7 +63,7 @@ Then, you can provide a store "instance" using `Provider` component.
 ```jsx
 import {Provider} from 'reto'
 
-<Provider of={FooStore}>
+<Provider of={CounterStore}>
   <App/>
 </Provider>
 ```
@@ -65,15 +74,12 @@ By using the `useStore` hook, you can retrieve the store "instance" in component
 import {useStore} from 'reto'
 
 const App: FC = (props) => {
-  const fooStore = useStore(FooStore)
+  const counterStore = useStore(CounterStore)
   
-  function changeStore() {
-    fooStore.setX(fooStore.x + 1)
-  }
   return (
     <div>
-      <button onClick={changeStore}>Change</button>
-      {fooStore.x}
+      <button onClick={counterStore.increase}>Increase</button>
+      {counterStore.count}
     </div>
   )
 }

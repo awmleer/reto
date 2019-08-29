@@ -41,11 +41,20 @@ $ npm install reto --save
 每一个`Store`其实就是一个类似于custom hook的函数。在`Store`的函数体中，你可以随意使用react hooks，例如`useState`、`useEffect`、`useRef`。
 
 ```jsx
-export function FooStore() {
-  const [x, setX] = useState(initial)
+export function CounterStore() {
+  const [count, setCount] = useState(1)
+  
+  useEffect(() => {
+    console.log('x is updated.')
+  }, [count])
+
+  function increase() {
+    setCount(count + 1)
+  }
+  
   return {
-    x,
-    setX
+    count,
+    increase,
   }
 }
 ```
@@ -53,7 +62,9 @@ export function FooStore() {
 通过`Provider`组件提供一个`FooStore`。
 
 ```jsx
-<Provider of={FooStore}>
+import {Provider} from 'reto'
+
+<Provider of={CounterStore}>
   <App/>
 </Provider>
 ```
@@ -61,16 +72,15 @@ export function FooStore() {
 在组件中通过`useStore`获取并订阅`FooStore`的更新。
 
 ```jsx
+import {useStore} from 'reto'
+
 const App: FC = (props) => {
-  const fooStore = useStore(FooStore)
+  const counterStore = useStore(CounterStore)
   
-  function changeStore() {
-    fooStore.setX(fooStore.x + 1)
-  }
   return (
     <div>
-      <button onClick={changeStore}>Change</button>
-      {fooStore.x}
+      <button onClick={counterStore.increase}>Increase</button>
+      {counterStore.count}
     </div>
   )
 }
