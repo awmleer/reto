@@ -59,7 +59,7 @@ export function CounterStore() {
 }
 ```
 
-通过`Provider`组件提供一个`FooStore`。
+通过`Provider`组件提供一个`FooStore`的"实例"。
 
 ```jsx
 import {Provider} from 'reto'

@@ -58,7 +58,7 @@ export function CounterStore() {
 }
 ```
 
-Then, you can provide a store "instance" using `Provider` component.
+Then, you can provide a store "instance" using the `Provider` component.
 
 ```jsx
 import {Provider} from 'reto'

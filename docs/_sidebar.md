@@ -1,4 +1,5 @@
 * [Get Started](./get-started.md)
-* [FAQ](./faq.md)
+* [Guide](./guide.md)
 * [Advanced](./advanced.md)
+* [FAQ](./faq.md)
 * [Third Party Libraries](./third-party-libraries.md)

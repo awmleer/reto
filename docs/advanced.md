@@ -18,35 +18,6 @@ export function FooStore(initial = 1) {
 </Provider>
 ```
 
-## Hierarchical Store Tree
-
-Reto uses React's Context API under the hood. Thereby, you can create a hierarchical store tree.
-
-```
-─ Provider of FooStore -> mark as instance A
-  ├─ Cosumer of FooStore -> we got instance A
-  └─ Provider of FooStore -> mark as instance B
-     └─ Consumer of FooStore -> we got instance B
-```
-
-## Dependencies Between Stores
-
-If you want to "inject" `FooStore` store into `BarStore`, you can call `useStore` in the body of `BarStore`.
-
-```jsx
-export function BarStore() {
-  const fooStore = useStore(FooStore)
-  const [x, setX] = useState(2)
-  return {
-    x,
-    setX,
-    fooStore,
-  }
-}
-```
-
-In the mean while, Reto will know `FooStore` is the dependency of BarStore. So whenever `FooStore` updates, `BarStore` will update too. 
-
 ## withProvider
 
 Sometimes we need to use a store in the same component that provides it, for example:
@@ -84,7 +55,7 @@ withProvider({
 })(YourComponent)
 ```
 
-当然，你还可以基于`withProvider`创建自己的高阶组件：
+What's more，you can build your own Higher-Order Components based on `withProvider`:
 
 ```js
 const provideFooStore = withProvider({
