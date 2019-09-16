@@ -1,0 +1,13 @@
+{
+  "scope": "awmleer",
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@now/static-build",
+      "config": { "distDir": "docs" }
+    }
+  ],
+  "github": {
+    "silent": true
+  }
+}
