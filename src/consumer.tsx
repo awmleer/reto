@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {ReactNode, useContext} from 'react'
+import {ReactNode, useContext, useDebugValue} from 'react'
 import {ReactElement} from 'react'
 import {Store} from './store'
 import {contextSymbol} from './symbols'
@@ -20,7 +20,8 @@ export function useStore<T>(S: Store<T>, optional?: boolean) {
     if (!optional) {
       console.error(`No store context of "${S.name}" found. Did you provide it?`)
     }
-    return null
+    return
   }
+  useDebugValue(S.name)
   return useContext(Context) as T
 }
