@@ -3,8 +3,10 @@
     "sourceMap": false,
     "declaration": true,
     "noImplicitAny": true,
-    "target": "es5",
-    "module": "commonjs",
+    "target": "es6",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
     "jsx": "react",
     "lib": ["es6"],
     "outDir": "./lib"

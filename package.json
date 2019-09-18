@@ -1,6 +1,6 @@
 {
   "name": "reto",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "main": "index.js",
   "repository": "https://github.com/awmleer/reto",
   "description": "React store with hooks.",
@@ -11,9 +11,10 @@
     "react": "^16.8.0"
   },
   "scripts": {
-    "build": "gulp prebuild && tsc",
+    "build": "gulp build",
     "test": "jest",
-    "lint": "tslint -p tsconfig.json"
+    "lint": "tslint -p tsconfig.json",
+    "umd": "rollup --config rollup.config.js"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^4.0.0",
@@ -25,10 +26,12 @@
     "@types/react-test-renderer": "^16.8.0",
     "del": "^5.0.0",
     "gulp": "^4.0.2",
+    "gulp-typescript": "^5.0.1",
     "jest": "^24.1.0",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
     "react-test-renderer": "^16.8.0",
+    "rollup": "^1.21.4",
     "ts-jest": "^24.0.2",
     "tslint": "^5.18.0",
     "typescript": "^3.4.5"
