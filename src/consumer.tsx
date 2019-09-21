@@ -38,10 +38,10 @@ export function useStore<T>(S: Store<T>, deps?: Deps<T>) {
       } else {
         const oldDeps = depsRef.current
         const newDeps = deps(container.store)
-        if (compare(oldDeps, newDeps)){
+        if (compare(oldDeps, newDeps)) {
           setState(container.store)
         }
-      depsRef.current = newDeps
+        depsRef.current = newDeps
       }
     }
     container.subscribers.add(subscriber)
