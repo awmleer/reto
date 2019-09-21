@@ -126,7 +126,7 @@ test('no extra render on children', function () {
 
   const ChildA: FC = memo((props) => {
     renderCount.a++
-    const fooStore = useStore(FooStore)
+    const fooStore = useStore(FooStore, (store) => [store.x])
     function changeStore() {
       fooStore.setX(fooStore.x + 1)
     }
