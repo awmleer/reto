@@ -154,7 +154,7 @@ test('no extra render on children', function () {
   expect(renderer.asFragment()).toMatchSnapshot()
   testing.fireEvent.click(testing.getByText(renderer.container, 'Change Parent'))
   expect(renderer.asFragment()).toMatchSnapshot()
-  expect(renderCount.a).toBe(4)
+  expect(renderCount.a).toBe(2)
   expect(renderCount.b).toBe(3)
 })
 
