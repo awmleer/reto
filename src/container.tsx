@@ -3,8 +3,10 @@ import {Store} from './store'
 type Subscriber = () => void
 
 export class Container<T> {
-  store: ReturnType<Store<T>>
   subscribers = new Set<Subscriber>()
+  constructor(
+    public state?: ReturnType<Store<T>>
+  ) {}
   notify() {
     for (const subscriber of this.subscribers) {
       subscriber()

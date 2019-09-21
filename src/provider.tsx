@@ -1,8 +1,7 @@
 import * as React from 'react'
 import {forwardRef, MutableRefObject, ReactNode, useRef} from 'react'
 import {Container} from './container'
-import {Store} from './store'
-import {contextSymbol} from './symbols'
+import {getStoreContext, Store} from './store'
 
 export interface ProviderProps<T> {
   of: Store<T>
@@ -15,11 +14,8 @@ type Props<T> = ProviderProps<T> & {
 }
 
 export const Provider = forwardRef(function Provider<T>(props: Props<T>, ref: MutableRefObject<T>) {
-  let Context = Reflect.getMetadata(contextSymbol, props.of)
-  if (!Context) {
-    Context = React.createContext(null)
-    Reflect.defineMetadata(contextSymbol, Context, props.of)
-  }
+  const S = props.of
+  const Context = getStoreContext(S)
   
   const containerRef = useRef<Container<T>>()
   if (!containerRef.current) {
@@ -29,7 +25,7 @@ export const Provider = forwardRef(function Provider<T>(props: Props<T>, ref: Mu
   
   const store = props.args ? props.of(...props.args) : props.of()
   if (ref) ref.current = store
-  container.store = store
+  container.state = store
   container.notify()
   
   return (
@@ -43,12 +39,12 @@ Provider.defaultProps = {
   args: [],
 }
 
-export function withProvider<P, T= any>(providerProps: ((props: P) => ProviderProps<T>) | ProviderProps<T>) {
+export function withProvider<P, T>(providerProps: ((props: P) => ProviderProps<T>) | ProviderProps<T>) {
   return function(C: React.ComponentType<P>): React.ComponentType<P> {
     return function WithProvider(props: P) {
       const finalProviderProps = typeof providerProps === 'function' ? providerProps(props) : providerProps
       return (
-        <Provider {...finalProviderProps}>
+        <Provider {...(finalProviderProps as any)}>
           <C {...props} />
         </Provider>
       )

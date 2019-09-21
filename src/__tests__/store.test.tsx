@@ -186,7 +186,7 @@ test('rerender on dependency update', function () {
 })
 
 
-test('handle return undefined from store function', () => {
+test('handle return undefined from state function', () => {
   function FooStore() {}
   const App = withProvider({
     of: FooStore
