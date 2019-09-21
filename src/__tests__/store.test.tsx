@@ -1,7 +1,7 @@
 import {Consumer, Provider, useStore, withProvider} from '..'
 import {BarStore, FooStore} from './stores/foo.store'
 import * as React from 'react'
-import {FC, useState} from 'react'
+import {FC, memo, useState} from 'react'
 import * as testing from '@testing-library/react'
 
 
@@ -118,8 +118,13 @@ test('no extra render on children', function () {
       </div>
     )
   }
+  
+  function Test() {
+    const Component: FC = (props) => <div>{props.children}</div>
+    return Component
+  }
 
-  const ChildA: FC = (props) => {
+  const ChildA: FC = memo((props) => {
     renderCount.a++
     const fooStore = useStore(FooStore)
     function changeStore() {
@@ -131,14 +136,17 @@ test('no extra render on children', function () {
         {fooStore.x}
       </div>
     )
-  }
+  })
+  
   const ChildB: FC = (props) => {
     renderCount.b++
     return null
   }
+  
   const renderer = testing.render(
     <Parent/>
   )
+  
   expect(renderer.asFragment()).toMatchSnapshot()
   testing.fireEvent.click(testing.getByText(renderer.container, 'Change Store'))
   expect(renderer.asFragment()).toMatchSnapshot()

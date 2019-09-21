@@ -1,5 +1,6 @@
 import * as React from 'react'
-import {forwardRef, MutableRefObject, ReactNode, useCallback, useRef, useState} from 'react'
+import {createRef, forwardRef, MutableRefObject, ReactNode, useCallback, useMemo, useRef, useState} from 'react'
+import {Container} from './container'
 import {MemoChildren} from './memo-children'
 import {StateBox} from './state-box'
 import {Store} from './store'
@@ -15,39 +16,27 @@ type Props<T> = ProviderProps<T> & {
   children: ReactNode
 }
 
-const notInitialized = Symbol()
-
 export const Provider = forwardRef(function Provider<T>(props: Props<T>, ref: MutableRefObject<T>) {
-  const [store, setStore] = useState<any>(notInitialized)
-  const updateFlagRef = useRef({})
-  const updateRef = useRef(false)
-
-  if (updateRef.current) {
-    updateFlagRef.current = {}
-  } else {
-    updateRef.current = true
-  }
-
   let Context = Reflect.getMetadata(contextSymbol, props.of)
   if (!Context) {
     Context = React.createContext(null)
     Reflect.defineMetadata(contextSymbol, Context, props.of)
   }
-
-  const onReactorChange = useCallback(function(value) {
-    setStore(value)
-    if (ref) { ref.current = value }
-    updateRef.current = false
-  }, [])
-
+  
+  const containerRef = useRef<Container<T>>()
+  if (!containerRef.current) {
+    containerRef.current = new Container<T>()
+  }
+  const container = containerRef.current
+  
+  const store = props.args ? props.of(...props.args) : props.of()
+  if (ref) ref.current = store
+  container.store = store
+  container.notify()
+  
   return (
-    <Context.Provider value={store}>
-      <StateBox useStore={props.of} args={props.args} onChange={onReactorChange}/>
-      {store !== notInitialized && (
-        <MemoChildren flag={updateFlagRef.current}>
-          {props.children}
-        </MemoChildren>
-      )}
+    <Context.Provider value={container}>
+      {props.children}
     </Context.Provider>
   )
 })

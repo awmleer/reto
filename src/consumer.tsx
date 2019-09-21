@@ -1,6 +1,7 @@
 import * as React from 'react'
-import {ReactNode, useContext, useDebugValue} from 'react'
+import {ReactNode, useContext, useDebugValue, useEffect, useState} from 'react'
 import {ReactElement} from 'react'
+import {Container} from './container'
 import {Store} from './store'
 import {contextSymbol} from './symbols'
 
@@ -23,5 +24,19 @@ export function useStore<T>(S: Store<T>, optional?: boolean) {
     return
   }
   useDebugValue(S.name)
-  return useContext(Context) as T
+  const container = useContext(Context) as Container<T>
+  
+  const [state, setState] = useState<T>(container.store)
+  
+  useEffect(() => {
+    const subscriber = () => {
+      setState(container.store)
+    }
+    container.subscribers.add(subscriber)
+    return () => {
+      container.subscribers.delete(subscriber)
+    }
+  }, [])
+  
+  return state
 }
