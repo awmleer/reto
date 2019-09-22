@@ -45,7 +45,7 @@ $ npm install reto --save
 
 ## Try It Online
 
-Click [here](https://stackblitz.com/edit/reto-demo) to try it online.
+[![Edit react](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/github/awmleer/reto-demo/tree/master/?fontsize=14)
 
 ## A Simple Example
 
