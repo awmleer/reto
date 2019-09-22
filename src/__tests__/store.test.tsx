@@ -205,7 +205,7 @@ test('ref', function () {
   function FooStore() {
     return 'foo'
   }
-  const storeRef = React.createRef()
+  const storeRef = React.createRef<ReturnType<typeof FooStore>>()
   const App = withProvider({
     of: FooStore,
     ref: storeRef

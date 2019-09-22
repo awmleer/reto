@@ -3,27 +3,26 @@ import {forwardRef, MutableRefObject, ReactNode, useRef} from 'react'
 import {Container} from './container'
 import {getStoreContext, Store} from './store'
 
-export interface ProviderProps<T> {
-  of: Store<T>
-  args?: unknown[]
-  ref?: MutableRefObject<T>
+export interface ProviderProps<F extends (...args: any) => any> {
+  of: Store<F>
+  args?: Parameters<F>
+  ref?: MutableRefObject<ReturnType<F>>
 }
 
-type Props<T> = ProviderProps<T> & {
+type Props<F extends (...args: any) => any> = ProviderProps<F> & {
   children: ReactNode
 }
 
-export const Provider = forwardRef(function Provider<T>(props: Props<T>, ref: MutableRefObject<T>) {
-  const S = props.of
-  const Context = getStoreContext(S)
+export const Provider = forwardRef(function Provider<F extends (...args: any) => any>(props: Props<F>, ref: MutableRefObject<ReturnType<F>>) {
+  const Context = getStoreContext(props.of)
   
-  const containerRef = useRef<Container<T>>()
+  const containerRef = useRef<Container<F>>()
   if (!containerRef.current) {
-    containerRef.current = new Container<T>()
+    containerRef.current = new Container<F>()
   }
   const container = containerRef.current
   
-  const store = props.args ? props.of(...props.args) : props.of()
+  const store = props.of(...props.args) as ReturnType<F>
   if (ref) ref.current = store
   container.state = store
   container.notify()
@@ -39,7 +38,7 @@ Provider.defaultProps = {
   args: [],
 }
 
-export function withProvider<P, T>(providerProps: ((props: P) => ProviderProps<T>) | ProviderProps<T>) {
+export function withProvider<P, S extends Store>(providerProps: ((props: P) => ProviderProps<S>) | ProviderProps<S>) {
   return function(C: React.ComponentType<P>): React.ComponentType<P> {
     return function WithProvider(props: P) {
       const finalProviderProps = typeof providerProps === 'function' ? providerProps(props) : providerProps

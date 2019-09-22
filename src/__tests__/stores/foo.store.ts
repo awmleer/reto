@@ -1,7 +1,7 @@
 import {useState} from 'react'
 import {useStore} from '../..'
 
-export function FooStore(initial = 1) {
+export function FooStore(initial: number = 1) {
   const [x, setX] = useState(initial)
   return {
     x,

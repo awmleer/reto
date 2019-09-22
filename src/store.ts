@@ -1,19 +1,19 @@
 import {Context, default as React} from 'react'
 import {Container} from './container'
 
-export interface Store<T> {
-  (...args: unknown[]): T
-  defaultValue?: T
+export interface Store<F extends (...args: any) => any = (...args: any) => any> {
+  (...args: Parameters<F>): ReturnType<F>
+  defaultValue?: ReturnType<F>
   optional?: boolean
   displayName?: string
   // defaultProps?
   
-  Context?: Context<Container<T>>
+  Context?: Context<Container<Store<F>>>
 }
 
-export function getStoreContext<T>(S: Store<T>): Store<T>['Context'] {
+export function getStoreContext<F extends (...args: any) => any>(S: Store<F>): Store<F>['Context'] {
   if (!S.Context) {
-    S.Context = React.createContext(new Container<T>(S.defaultValue))
+    S.Context = React.createContext<Container<Store<F>>>(new Container<Store<F>>(S.defaultValue))
   }
   return S.Context
 }
