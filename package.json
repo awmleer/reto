@@ -1,6 +1,6 @@
 {
   "name": "reto",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "main": "index.js",
   "repository": "https://github.com/awmleer/reto",
   "description": "React store with hooks.",
@@ -37,6 +37,5 @@
     "typescript": "^3.4.5"
   },
   "dependencies": {
-    "reflect-metadata": "^0.1.12"
   }
 }

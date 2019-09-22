@@ -52,17 +52,27 @@ export const App = withProvider({
 withProvider({
   of: FooStore,
   args: [42, 'abc'],
-})(YourComponent)
+})(MyComponent)
 ```
+
+If you want to generate the `props` of `Provider` dynamically, you can pass a **function** to `withProvider`.
+
+```jsx
+withProvider(props => ({
+  of: FooStore,
+  args: [42, props.id],
+}))(MyComponent)
+```
+
 
 What's more，you can build your own Higher-Order Components based on `withProvider`:
 
 ```js
-const provideFooStore = withProvider({
+const withFooStoreProvider = withProvider({
   of: FooStore
 })
 
-export const App = provideFooStore((props) => {
+export const App = withFooStoreProvider((props) => {
   //...
 })
 ```
@@ -92,4 +102,12 @@ export class App extends Component {
 
 If a store is too big or it updates too frequently, there may be a performance issue.
 
-Since `useStore` is actually `useContext` under the hood, you can solve this issue by the same way of `useContext`. Please see [this](https://github.com/facebook/react/issues/15156#issuecomment-474590693) for reference.
+You can pass an additional `deps` function to `useStore` for controlling whether to rerender.
+
+```jsx
+const fooStore = useStore(FooStore, store => [store.x, store.y[0]])
+```
+
+This is very similar to `useMemo` and `useEffect`. But please notice that the `deps` of `useStore` is **function**.
+
+In addition, we recommend splitting a large Store into small parts, so that not only is the code easier to maintain, but performance can also get improved.

@@ -52,17 +52,26 @@ export const App = withProvider({
 withProvider({
   of: FooStore,
   args: [42, 'abc'],
-})(YourComponent)
+})(MyComponent)
+```
+
+此外，你还可以传入一个props的**生成函数**。如果你希望根据组件接收到到`props`动态控制传递给`Provider`的`props`，可以使用这种方法。
+
+```jsx
+withProvider(props => ({
+  of: FooStore,
+  args: [42, props.id],
+}))(MyComponent)
 ```
 
 当然，你还可以基于`withProvider`创建自己的高阶组件：
 
 ```js
-const provideFooStore = withProvider({
+const withFooStoreProvider = withProvider({
   of: FooStore
 })
 
-export const App = provideFooStore((props) => {
+export const App = withFooStoreProvider((props) => {
   //...
 })
 ```
@@ -89,4 +98,12 @@ export class App extends Component {
 
 ## 如何解决store频繁更新所导致的性能问题
 
-`useStore`在底层是使用的`useContext`，因此，关于这个问题的处理方案，可以参照[这里](https://github.com/facebook/react/issues/15156#issuecomment-474590693)。
+`useStore`支持传入一个额外的`deps`函数，来控制是否进行组件的重渲染：
+
+```jsx
+const fooStore = useStore(FooStore, store => [store.x, store.y[0]])
+```
+
+这和`useMemo`、`useEffect`的`deps`非常相似，但是，`useStore`的`deps`参数是一个**函数**。
+
+此外，我们建议对一个庞大的Store进行拆分，这样不仅代码更易于维护，性能也会有所改善。

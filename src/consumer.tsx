@@ -19,11 +19,12 @@ export function Consumer<T>(props: Props<T>) {
 
 export function useStore<T>(S: Store<T>, deps?: Deps<T>) {
   const Context = S.optional ? getStoreContext(S) : S.Context
+  const name = S.displayName || S.name
   if (!Context) {
-    console.error(`No store context of "${S.name}" found. Did you provide it?`)
+    console.error(`No store context of "${name}" found. Did you provide it?`)
     return
   }
-  useDebugValue(S.name)
+  useDebugValue(name)
   const container = useContext(Context) as Container<T>
   
   const [state, setState] = useState<T>(container.state)
