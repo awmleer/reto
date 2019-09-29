@@ -39,7 +39,7 @@ Provider.defaultProps = {
   args: [],
 }
 
-export function withProvider<P, T>(providerProps: ((props: P) => ProviderProps<T>) | ProviderProps<T>) {
+export function withProvider<P, T = unknown>(providerProps: ((props: P) => ProviderProps<T>) | ProviderProps<T>) {
   return function(C: React.ComponentType<P>): React.ComponentType<P> {
     return function WithProvider(props: P) {
       const finalProviderProps = typeof providerProps === 'function' ? providerProps(props) : providerProps
