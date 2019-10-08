@@ -1,7 +1,11 @@
 import {useState} from 'react'
 import {useStore} from '../..'
 
-export function FooStore(initial = 1) {
+interface Params {
+  initial: number
+}
+
+export function FooStore({initial = 1}: Params) {
   const [x, setX] = useState(initial)
   return {
     x,

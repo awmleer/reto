@@ -1,8 +1,8 @@
 import {Context, default as React} from 'react'
 import {Container} from './container'
 
-export interface Store<T> {
-  (...args: unknown[]): T
+export interface Store<T = unknown, P = {}> {
+  (params: P): T
   defaultValue?: T
   optional?: boolean
   displayName?: string
@@ -10,6 +10,9 @@ export interface Store<T> {
   
   Context?: Context<Container<T>>
 }
+
+export type StoreParams<S extends Store> = S extends Store<any, infer P> ? P : never
+export type StoreValue<S extends Store> = S extends Store<infer T, any> ? T : never
 
 export function getStoreContext<T>(S: Store<T>): Store<T>['Context'] {
   if (!S.Context) {

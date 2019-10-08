@@ -48,7 +48,7 @@ test('provider initialize', function () {
 test('withProvider', function () {
   const App = withProvider({
     of: FooStore,
-    args: [123]
+    params: {initial: 123}
   })(function App() {
     const fooStore = useStore(FooStore)
     return <div>{fooStore.x}</div>
@@ -89,7 +89,7 @@ test('provider initialize with args', function () {
     )
   }
   const renderer = testing.render(
-    <Provider of={FooStore} args={[5]}>
+    <Provider of={FooStore} params={{initial: 5}}>
       <App/>
     </Provider>
   )
@@ -111,7 +111,7 @@ test('no extra render on children', function () {
       <div>
         <button onClick={() => setState(state + 1)}>Change Parent</button>
         parent state: {state}
-        <Provider of={FooStore} args={[]}>
+        <Provider of={FooStore}>
           <ChildA/>
           <ChildB/>
         </Provider>
@@ -205,7 +205,7 @@ test('ref', function () {
   function FooStore() {
     return 'foo'
   }
-  const storeRef = React.createRef()
+  const storeRef = React.createRef<string>()
   const App = withProvider({
     of: FooStore,
     ref: storeRef

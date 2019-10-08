@@ -1,29 +1,29 @@
 import * as React from 'react'
 import {forwardRef, MutableRefObject, ReactNode, useRef} from 'react'
 import {Container} from './container'
-import {getStoreContext, Store} from './store'
+import {getStoreContext, Store, StoreParams, StoreValue} from './store'
 
-export interface ProviderProps<T> {
-  of: Store<T>
-  args?: unknown[]
-  ref?: MutableRefObject<T>
+export interface ProviderProps<S extends Store> {
+  of: S
+  params?: StoreParams<S>
+  ref?: MutableRefObject<StoreValue<S>>
 }
 
-type Props<T> = ProviderProps<T> & {
+type Props<S extends Store> = ProviderProps<S> & {
   children: ReactNode
 }
 
-export const Provider = forwardRef(function Provider<T>(props: Props<T>, ref: MutableRefObject<T>) {
-  const S = props.of
-  const Context = getStoreContext(S)
+export const Provider = forwardRef(function Provider<S extends Store>(props: Props<S>, ref: MutableRefObject<StoreValue<S>>) {
+  const useStore = props.of as S
+  const Context = getStoreContext(useStore)
   
-  const containerRef = useRef<Container<T>>()
+  const containerRef = useRef<Container<StoreValue<S>>>()
   if (!containerRef.current) {
-    containerRef.current = new Container<T>()
+    containerRef.current = new Container<StoreValue<S>>()
   }
   const container = containerRef.current
   
-  const store = props.args ? props.of(...props.args) : props.of()
+  const store = useStore(props.params) as StoreValue<S>
   if (ref) ref.current = store
   container.state = store
   container.notify()
@@ -36,10 +36,10 @@ export const Provider = forwardRef(function Provider<T>(props: Props<T>, ref: Mu
 })
 
 Provider.defaultProps = {
-  args: [],
+  params: {},
 }
 
-export function withProvider<P, T = unknown>(providerProps: ((props: P) => ProviderProps<T>) | ProviderProps<T>) {
+export function withProvider<P, S extends Store>(providerProps: ((props: P) => ProviderProps<S>) | ProviderProps<S>) {
   return function(C: React.ComponentType<P>): React.ComponentType<P> {
     return function WithProvider(props: P) {
       const finalProviderProps = typeof providerProps === 'function' ? providerProps(props) : providerProps
