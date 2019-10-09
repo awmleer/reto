@@ -1,11 +1,9 @@
-import {Store} from './store'
-
 type Subscriber = () => void
 
-export class Container<T> {
+export class Container<V> {
   subscribers = new Set<Subscriber>()
   constructor(
-    public state?: ReturnType<Store<T>>
+    public state?: V
   ) {}
   notify() {
     for (const subscriber of this.subscribers) {

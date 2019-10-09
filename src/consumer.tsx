@@ -2,22 +2,22 @@ import * as React from 'react'
 import {ReactNode, useContext, useDebugValue, useEffect, useRef, useState} from 'react'
 import {ReactElement} from 'react'
 import {Container} from './container'
-import {getStoreContext, Store} from './store'
+import {getStoreContext, Store, StoreV} from './store'
 
 type Deps<T> = (store: T) => unknown[]
 
-interface Props<T> {
-  of: Store<T>
-  deps?: Deps<T>
-  children: (store: T) => ReactNode
+interface Props<S extends Store> {
+  of: S
+  deps?: Deps<StoreV<S>>
+  children: (store: StoreV<S>) => ReactNode
 }
 
-export function Consumer<T>(props: Props<T>) {
+export function Consumer<S extends Store>(props: Props<S>) {
   const store = useStore(props.of)
   return props.children(store) as ReactElement
 }
 
-export function useStore<T>(S: Store<T>, deps?: Deps<T>) {
+export function useStore<S extends Store>(S: S, deps?: Deps<StoreV<S>>) {
   const Context = S.optional ? getStoreContext(S) : S.Context
   const name = S.displayName || S.name
   if (!Context) {
@@ -25,9 +25,9 @@ export function useStore<T>(S: Store<T>, deps?: Deps<T>) {
     return
   }
   useDebugValue(name)
-  const container = useContext(Context) as Container<T>
+  const container = useContext(Context) as Container<StoreV<S>>
   
-  const [state, setState] = useState<T>(container.state)
+  const [state, setState] = useState<StoreV<S>>(container.state)
   
   const depsRef = useRef<unknown[]>([])
   
