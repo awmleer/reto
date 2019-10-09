@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`reducer store 1`] = `
+<DocumentFragment>
+  <div>
+    <button>
+      Change
+    </button>
+    1
+  </div>
+</DocumentFragment>
+`;
+
+exports[`reducer store 2`] = `
+<DocumentFragment>
+  <div>
+    <button>
+      Change
+    </button>
+    3
+  </div>
+</DocumentFragment>
+`;
