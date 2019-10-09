@@ -18,6 +18,7 @@
     }],
     "no-trailing-whitespace": [true, "ignore-blank-lines"],
     "member-access": false,
+    "max-line-length": false,
     "curly": [true, "ignore-same-line"]
   },
   "rulesDirectory": []
