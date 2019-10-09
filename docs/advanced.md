@@ -1,10 +1,10 @@
 ## Pass Arguments to Store
 
-You can use the `args` prop of `Provider` to pass arguments to Store.
+You can use the `params` prop of `Provider` to pass arguments to Store.
 
 ```jsx
-export function FooStore(initial = 1) {
-  const [x, setX] = useState(initial)
+export function FooStore(params) {
+  const [x, setX] = useState(params.initial)
   return {
     x,
     setX
@@ -13,7 +13,7 @@ export function FooStore(initial = 1) {
 ```
 
 ```jsx
-<Provider of={FooStore} args={[5]}>
+<Provider of={FooStore} params={{initial: 5}}>
   <App/>
 </Provider>
 ```
@@ -51,7 +51,10 @@ export const App = withProvider({
 ```jsx
 withProvider({
   of: FooStore,
-  args: [42, 'abc'],
+  params: {
+    count: 42,
+    id: 'abc',
+  },
 })(MyComponent)
 ```
 
@@ -60,7 +63,10 @@ If you want to generate the `props` of `Provider` dynamically, you can pass a **
 ```jsx
 withProvider(props => ({
   of: FooStore,
-  args: [42, props.id],
+  params: {
+    count: 42,
+    id: props.id,
+  },
 }))(MyComponent)
 ```
 

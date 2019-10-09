@@ -6,6 +6,7 @@ export interface Store<T = unknown, P = {}> {
   defaultValue?: T
   optional?: boolean
   displayName?: string
+  memo?: boolean | ((prevParams: P, nextParams: P) => boolean)
   // defaultProps?
   
   Context?: Context<Container<T>>

@@ -1,10 +1,10 @@
 ## 传递参数给Store
 
-可以通过Provider的args属性传递参数给Store：
+可以通过Provider的 `params` 属性传递参数给Store：
 
 ```jsx
-export function FooStore(initial = 1) {
-  const [x, setX] = useState(initial)
+export function FooStore(params) {
+  const [x, setX] = useState(params.initial)
   return {
     x,
     setX
@@ -13,7 +13,7 @@ export function FooStore(initial = 1) {
 ```
 
 ```jsx
-<Provider of={FooStore} args={[5]}>
+<Provider of={FooStore} params={{initial: 5}}>
   <App/>
 </Provider>
 ```
@@ -51,7 +51,10 @@ export const App = withProvider({
 ```jsx
 withProvider({
   of: FooStore,
-  args: [42, 'abc'],
+  params: {
+    count: 42,
+    id: 'abc',
+  },
 })(MyComponent)
 ```
 
@@ -60,7 +63,10 @@ withProvider({
 ```jsx
 withProvider(props => ({
   of: FooStore,
-  args: [42, props.id],
+  params: {
+    count: 42,
+    id: props.id,
+  },
 }))(MyComponent)
 ```
 

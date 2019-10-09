@@ -104,7 +104,7 @@ exports[`provider initialize 2`] = `
 </DocumentFragment>
 `;
 
-exports[`provider initialize with args 1`] = `
+exports[`provider initialize with params 1`] = `
 <DocumentFragment>
   <div>
     <button>
@@ -115,7 +115,7 @@ exports[`provider initialize with args 1`] = `
 </DocumentFragment>
 `;
 
-exports[`provider initialize with args 2`] = `
+exports[`provider initialize with params 2`] = `
 <DocumentFragment>
   <div>
     <button>

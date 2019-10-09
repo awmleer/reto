@@ -74,7 +74,7 @@ test('Consumer', function () {
 })
 
 
-test('provider initialize with args', function () {
+test('provider initialize with params', function () {
   const App: FC = (props) => {
     const fooStore = useStore(FooStore)
 
