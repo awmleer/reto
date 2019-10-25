@@ -1,6 +1,7 @@
 import * as React from 'react'
 import {forwardRef, MutableRefObject, ReactNode, useCallback, useRef, useState} from 'react'
 import {MemoChildren} from './memo-children'
+import {contextMap} from './shared-map'
 import {StateBox} from './state-box'
 import {Store} from './store'
 import {contextSymbol} from './symbols'
@@ -28,10 +29,10 @@ export const Provider = forwardRef(function Provider<T>(props: Props<T>, ref: Mu
     updateRef.current = true
   }
 
-  let Context = Reflect.getMetadata(contextSymbol, props.of)
+  let Context = contextMap.get(props.of) //Reflect.getMetadata(contextSymbol, props.of)
   if (!Context) {
     Context = React.createContext(null)
-    Reflect.defineMetadata(contextSymbol, Context, props.of)
+    contextMap.set(props.of, Context) //Reflect.defineMetadata(contextSymbol, Context, props.of)
   }
 
   const onReactorChange = useCallback(function(value) {

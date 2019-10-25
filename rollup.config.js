@@ -1,7 +1,6 @@
 module.exports = {
   external: [
     'react',
-    'reflect-metadata',
   ],
   input: 'lib/index.js',
   output: {
