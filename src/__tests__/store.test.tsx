@@ -1,4 +1,4 @@
-import {Consumer, Provider, useStore, withProvider} from '..'
+import {Consumer, Provider, Store, useStore, withProvider} from '..'
 import {BarStore, FooStore} from './stores/foo.store'
 import * as React from 'react'
 import {FC, memo, useState} from 'react'
@@ -194,6 +194,27 @@ test('handle return undefined from state function', () => {
     const fooStore = useStore(FooStore)
     return <div>content</div>
   })
+  const renderer = testing.render(
+    <App/>
+  )
+  expect(renderer.asFragment()).toMatchSnapshot()
+})
+
+
+test('default value', () => {
+  const FooStore = function() {
+    const [x, setX] = useState(1)
+    return {x, setX}
+  }
+  FooStore.defaultValue = {
+    x: 0
+  }
+  function App() {
+    const fooStore = useStore(FooStore)
+    return (
+      <div>{fooStore.x}</div>
+    )
+  }
   const renderer = testing.render(
     <App/>
   )

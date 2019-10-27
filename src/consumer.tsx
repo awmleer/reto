@@ -23,11 +23,7 @@ export function useStore<S extends Store>(S: S, deps?: Deps<StoreV<S>>) {
   const hasDefaultValue = S.hasOwnProperty('defaultValue')
   const Context = hasDefaultValue ? getStoreContext(S) : S.Context
   if (!Context) {
-    if (hasDefaultValue) {
-      return S.defaultValue
-    } else {
-      throw new Error(`No store context of "${name}" found. And "${name}" doesn't have defaultValue. Either render a Provider or set a defaultValue for this Store.`)
-    }
+    throw new Error(`No store context of "${name}" found. And "${name}" doesn't have defaultValue. Either render a Provider or set a defaultValue for this Store.`)
   }
   const container = useContext(Context) as Container<StoreV<S>>
   

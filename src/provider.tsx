@@ -19,7 +19,7 @@ export const Provider = function<S extends Store>(props: Props<S>) {
   }
   const container = containerRef.current
 
-  container.state = props.args ? props.of(...props.args) : props.of()
+  container.state = (props.args ? props.of(...props.args) : props.of()) as StoreV<S>
   container.notify()
   
   return (
