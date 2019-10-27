@@ -101,7 +101,7 @@ export class App extends Component {
 `useStore`支持传入一个额外的`deps`函数，来控制是否进行组件的重渲染：
 
 ```jsx
-const fooStore = useStore(FooStore, store => [store.x, store.y[0]])
+const fooStore = useStore(FooStore, store => [store.x > 10, store.x < 20])
 ```
 
 这和`useMemo`、`useEffect`的`deps`非常相似，但是，`useStore`的`deps`参数是一个**函数**。

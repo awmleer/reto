@@ -18,13 +18,17 @@ export function Consumer<S extends Store>(props: Props<S>) {
 }
 
 export function useStore<S extends Store>(S: S, deps?: Deps<StoreV<S>>) {
-  const Context = S.optional ? getStoreContext(S) : S.Context
   const name = S.displayName || S.name
-  if (!Context) {
-    console.error(`No store context of "${name}" found. Did you provide it?`)
-    return
-  }
   useDebugValue(name)
+  const hasDefaultValue = S.hasOwnProperty('defaultValue')
+  const Context = hasDefaultValue ? getStoreContext(S) : S.Context
+  if (!Context) {
+    if (hasDefaultValue) {
+      return S.defaultValue
+    } else {
+      throw new Error(`No store context of "${name}" found. And "${name}" doesn't have defaultValue. Either render a Provider or set a defaultValue for this Store.`)
+    }
+  }
   const container = useContext(Context) as Container<StoreV<S>>
   
   const [state, setState] = useState<StoreV<S>>(container.state)
