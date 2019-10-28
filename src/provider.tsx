@@ -1,11 +1,13 @@
 import * as React from 'react'
-import {PropsWithChildren, useRef} from 'react'
+import {PropsWithChildren, useRef, useState} from 'react'
 import {Container} from './container'
+import {Executor} from './executor'
 import {getStoreContext, Store, StoreP, StoreV} from './store'
 
 export interface ProviderProps<S extends Store> {
   of: S
   args?: StoreP<S>
+  memo?: boolean
 }
 
 type Props<S extends Store> = PropsWithChildren<ProviderProps<S>>
@@ -18,13 +20,18 @@ export const Provider = function<S extends Store>(props: Props<S>) {
     containerRef.current = new Container<StoreV<S>>()
   }
   const container = containerRef.current
-
-  container.state = (props.args ? props.of(...props.args) : props.of()) as StoreV<S>
-  container.notify()
+  
+  const [initialized, setInitialized] = useState(false)
+  function onChange(value: StoreV<S>) {
+    setInitialized(true)
+    container.state = value
+    container.notify()
+  }
   
   return (
     <Context.Provider value={container}>
-      {props.children}
+      <Executor useStore={props.of} args={props.args} onChange={onChange}/>
+      {initialized && props.children}
     </Context.Provider>
   )
 }
