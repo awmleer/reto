@@ -134,6 +134,34 @@ exports[`provider initialize with args 2`] = `
 </DocumentFragment>
 `;
 
+exports[`provider memo 1`] = `
+<DocumentFragment>
+  <p>
+    2
+  </p>
+  <p>
+    2
+  </p>
+  <p>
+    1
+  </p>
+</DocumentFragment>
+`;
+
+exports[`provider memo 2`] = `
+<DocumentFragment>
+  <p>
+    3
+  </p>
+  <p>
+    3
+  </p>
+  <p>
+    1
+  </p>
+</DocumentFragment>
+`;
+
 exports[`rerender on dependency update 1`] = `
 <DocumentFragment>
   <div>

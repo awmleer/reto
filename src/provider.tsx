@@ -30,7 +30,7 @@ export const Provider = function<S extends Store>(props: Props<S>) {
   
   return (
     <Context.Provider value={container}>
-      <Executor useStore={props.of} args={props.args} onChange={onChange}/>
+      <Executor useStore={props.of} args={props.args} onChange={onChange} memo={props.memo}/>
       {initialized && props.children}
     </Context.Provider>
   )

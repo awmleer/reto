@@ -1,7 +1,8 @@
+import {act} from '@testing-library/react'
 import {Consumer, Provider, Store, useStore, withProvider} from '..'
 import {BarStore, FooStore} from './stores/foo.store'
 import * as React from 'react'
-import {FC, memo, useState} from 'react'
+import {createRef, FC, forwardRef, memo, useEffect, useImperativeHandle, useRef, useState} from 'react'
 import * as testing from '@testing-library/react'
 
 
@@ -23,7 +24,7 @@ import * as testing from '@testing-library/react'
 test('provider initialize', function () {
   const App: FC = (props) => {
     const fooStore = useStore(FooStore)
-
+    
     function changeStore() {
       fooStore.setX(fooStore.x + 1)
     }
@@ -77,7 +78,7 @@ test('Consumer', function () {
 test('provider initialize with args', function () {
   const App: FC = (props) => {
     const fooStore = useStore(FooStore)
-
+    
     function changeStore() {
       fooStore.setX(fooStore.x + 1)
     }
@@ -104,7 +105,7 @@ test('no extra render on children', function () {
     a: 0,
     b: 0,
   }
-
+  
   const Parent: FC = props => {
     const [state, setState] = useState(1)
     return (
@@ -123,7 +124,7 @@ test('no extra render on children', function () {
     const Component: FC = (props) => <div>{props.children}</div>
     return Component
   }
-
+  
   const ChildA: FC = memo((props) => {
     renderCount.a++
     const fooStore = useStore(FooStore, (store) => [store.x])
@@ -162,7 +163,7 @@ test('no extra render on children', function () {
 test('rerender on dependency update', function () {
   const App: FC = (props) => {
     const barStore = useStore(BarStore)
-
+    
     function changeStore() {
       barStore.fooStore.setX(3)
     }
@@ -218,6 +219,56 @@ test('default value', () => {
   const renderer = testing.render(
     <App/>
   )
+  expect(renderer.asFragment()).toMatchSnapshot()
+})
+
+
+test('provider memo', () => {
+  const FooStore = function() {
+    const ref = useRef(0)
+    ref.current++
+    return {
+      x: ref.current
+    }
+  }
+  
+  function Show() {
+    const fooStore = useStore(FooStore)
+    return (
+      <p>{fooStore.x}</p>
+    )
+  }
+  
+  const App = forwardRef((props, ref) => {
+    const [flag, setFlag] = useState(0)
+    useImperativeHandle(ref,() => {
+      return {
+        setFlag
+      }
+    })
+    return (
+      <>
+        <Provider of={FooStore}>
+          <Show/>
+        </Provider>
+        <Provider of={FooStore} memo={false}>
+          <Show/>
+        </Provider>
+        <Provider of={FooStore} memo>
+          <Show/>
+        </Provider>
+      </>
+    )
+  }
+)
+  const appRef = createRef<any>()
+  const renderer = testing.render(
+    <App ref={appRef}/>
+  )
+  expect(renderer.asFragment()).toMatchSnapshot()
+  act(() => {
+    appRef.current.setFlag(1)
+  })
   expect(renderer.asFragment()).toMatchSnapshot()
 })
 
