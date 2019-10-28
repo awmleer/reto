@@ -100,6 +100,40 @@ export class App extends Component {
 
 ## How to Solve the Performance Issue
 
+There are several ways to solve the performance issuse:
+
+### Eliminate Redundant Updates of Provider
+
+When the parent component re-renders, the `Provider` component in it will also re-render, therefore the Store Hook will be re-executed. And finally, all the components subscribed to this Store will be re-rendered. This kind of cascading update will often result in dramatically performance cost.
+
+```jsx
+function App(props) {
+  return (
+    <Provider of={FooStore} args=[10]>
+      {props.children}
+    </Provider>
+  )
+}
+```
+
+Fortunately, reto provides the `memo` props for `Provider`, which can be enabled to avoid redundant updates of `Provider`.
+
+```jsx
+function App(props) {
+  return (
+    <Provider of={FooStore} args=[10] memo>
+      {props.children}
+    </Provider>
+  )
+}
+```
+
+When `memo` is turned on, `Provider` will perform a shallow comparison of the old and new `args` arrays. If there is no change, this update will be skipped.
+
+> In most cases, we recommend turning on `memo`, which is very straightforward and effective for performance optimization.
+
+### Partial Subscription
+
 If a store is too big or it updates too frequently, there may be a performance issue.
 
 You can pass an additional `deps` function to `useStore` for controlling whether to rerender.
@@ -110,7 +144,9 @@ const fooStore = useStore(FooStore, store => [store.x, store.y[0]])
 
 This is very similar to `useMemo` and `useEffect`. But please notice that the `deps` of `useStore` is **function**.
 
-In addition, we recommend splitting a large Store into small parts, so that not only is the code easier to maintain, but performance can also get improved.
+### Split Store
+
+We recommend splitting a large Store into small parts, so that not only is the code easier to maintain, but performance can also get improved.
 
 ## Default Value
 
