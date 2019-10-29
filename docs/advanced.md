@@ -18,65 +18,6 @@ export function FooStore(initial = 1) {
 </Provider>
 ```
 
-## withProvider
-
-Sometimes we need to use a store in the same component that provides it, for example:
-
-```jsx
-export function App(props) {
-  const fooStore = useStore(FooStore) // ⚠️Can't get fooStore here
-  return (
-    <Provider of={FooStore}>
-      <p>{fooStore.x}</p>
-    </Provider>
-  )
-}
-```
-
-We hope to create a `Provider` of `FooStore` in `App` component, and call `useStore(FooStore)` in it at the same time. OK, we got `withProvider` for you:
-
-```jsx
-export const App = withProvider({
-  of: FooStore
-})((props) => {
-  const fooStore = useStore(FooStore) // 🎉 Now we can get fooStore here
-  return (
-    <p>{fooStore.x}</p>
-  )
-})
-```
-
-`withProvider` is a HOC(Higher-Order Component). First, we pass a props object to it(just like what we do in jsx, but in the format of object). And then we pass our component to it.
-
-```jsx
-withProvider({
-  of: FooStore,
-  args: [42, 'abc'],
-})(MyComponent)
-```
-
-If you want to generate the `props` of `Provider` dynamically, you can pass a **function** to `withProvider`.
-
-```jsx
-withProvider(props => ({
-  of: FooStore,
-  args: [42, props.id],
-}))(MyComponent)
-```
-
-
-What's more，you can build your own Higher-Order Components based on `withProvider`:
-
-```js
-const withFooStoreProvider = withProvider({
-  of: FooStore
-})
-
-export const App = withFooStoreProvider((props) => {
-  //...
-})
-```
-
 ## Use in Class Components
 
 Even though Reto itself is written with hooks, it is still supported to use Reto in class components. You may wonder how to use `useStore` in class components. The answer is: No, you can't. But, there is an substitute for `useStore`, which is `Consumer` component:
