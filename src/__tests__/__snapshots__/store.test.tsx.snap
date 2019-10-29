@@ -183,11 +183,3 @@ exports[`rerender on dependency update 2`] = `
   </div>
 </DocumentFragment>
 `;
-
-exports[`withProvider 1`] = `
-<DocumentFragment>
-  <div>
-    123
-  </div>
-</DocumentFragment>
-`;

@@ -1,8 +1,8 @@
 import {act} from '@testing-library/react'
-import {Consumer, Provider, Store, useStore, withProvider} from '..'
+import {Consumer, Provider, useStore} from '..'
 import {BarStore, FooStore} from './stores/foo.store'
 import * as React from 'react'
-import {createRef, FC, forwardRef, memo, useEffect, useImperativeHandle, useRef, useState} from 'react'
+import {createRef, FC, forwardRef, memo, useImperativeHandle, useRef, useState} from 'react'
 import * as testing from '@testing-library/react'
 
 
@@ -45,25 +45,10 @@ test('provider initialize', function () {
   expect(renderer.asFragment()).toMatchSnapshot()
 })
 
-
-test('withProvider', function () {
-  const App = withProvider({
-    of: FooStore,
-    args: [123]
-  })(function App() {
-    const fooStore = useStore(FooStore)
-    return <div>{fooStore.x}</div>
-  })
-  const renderer = testing.render(
-    <App/>
-  )
-  expect(renderer.asFragment()).toMatchSnapshot()
-})
-
-
 test('Consumer', function () {
+  const test = 1
   const renderer = testing.render(
-    <Provider of={FooStore}>
+    <Provider of={FooStore} args={[test]}>
       <Consumer of={FooStore}>
         {fooStore => (
           fooStore.x
@@ -189,14 +174,14 @@ test('rerender on dependency update', function () {
 
 test('handle return undefined from state function', () => {
   function FooStore() {}
-  const App = withProvider({
-    of: FooStore
-  })(function App() {
+  const App = function() {
     const fooStore = useStore(FooStore)
     return <div>content</div>
-  })
+  }
   const renderer = testing.render(
-    <App/>
+    <Provider of={FooStore}>
+      <App/>
+    </Provider>
   )
   expect(renderer.asFragment()).toMatchSnapshot()
 })
