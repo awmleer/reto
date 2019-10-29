@@ -88,21 +88,3 @@ This is very similar to `useMemo` and `useEffect`. But please notice that the `d
 ### Split Store
 
 We recommend splitting a large Store into small parts, so that not only is the code easier to maintain, but performance can also get improved.
-
-## Default Value
-
-You can set the `defaultValue` property on Store functions. When there is no `Provider`, `useStore` will use this `defaultValue`.
-
-```jsx
-function FooStore() {
-  const [x, setX] = useState(1)
-  return {x, setX}
-}
-FooStore.defaultValue = {x: 0}
-
-function App() {
-  const fooStore = useStore(FooStore)
-  console.log(fooStore) // {x: 0}
-  //...
-}
-```

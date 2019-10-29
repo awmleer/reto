@@ -2,7 +2,8 @@ import * as React from 'react'
 import {ReactNode, useContext, useDebugValue, useEffect, useRef, useState} from 'react'
 import {ReactElement} from 'react'
 import {Container} from './container'
-import {getStoreContext, Store, StoreV} from './store'
+import {NoStoreError} from './error'
+import {defaultStoreValue, getStoreContext, Store, StoreV} from './store'
 
 type Deps<T> = (store: T) => unknown[]
 
@@ -17,14 +18,10 @@ export function Consumer<S extends Store>(props: Props<S>) {
   return props.children(store) as ReactElement
 }
 
-export function useStore<S extends Store>(S: S, deps?: Deps<StoreV<S>>) {
-  const name = S.displayName || S.name
+export function useStore<S extends Store>(s: S, deps?: Deps<StoreV<S>>) {
+  const name = s.displayName || s.name
   useDebugValue(name)
-  const hasDefaultValue = S.hasOwnProperty('defaultValue')
-  const Context = hasDefaultValue ? getStoreContext(S) : S.Context
-  if (!Context) {
-    throw new Error(`No store context of "${name}" found. And "${name}" doesn't have defaultValue. Either render a Provider or set a defaultValue for this Store.`)
-  }
+  const Context = getStoreContext(s)
   const container = useContext(Context) as Container<StoreV<S>>
   
   const [state, setState] = useState<StoreV<S>>(container.state)
@@ -50,7 +47,24 @@ export function useStore<S extends Store>(S: S, deps?: Deps<StoreV<S>>) {
     }
   }, [])
   
+  if (state === defaultStoreValue) {
+    throw new NoStoreError(`No store context of "${name}" found. And "${name}" doesn't have defaultValue. Either render a Provider or set a defaultValue for this Store.`, s)
+  }
+  
   return state
+}
+
+export function useStoreOptionally<S extends Store>(s: S, deps?: Deps<StoreV<S>>): [StoreV<S> | undefined, boolean] {
+  try {
+    const store = useStore(s, deps)
+    return [store, true]
+  } catch (e) {
+    if (e instanceof NoStoreError) {
+      return [undefined, false]
+    } else {
+      throw e
+    }
+  }
 }
 
 function compare(oldDeps: unknown[], newDeps: unknown[]) {

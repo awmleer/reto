@@ -85,21 +85,3 @@ const fooStore = useStore(FooStore, store => [store.x > 10, store.x < 20])
 ### 拆分Store
 
 我们建议对一个庞大的Store进行拆分，这样不仅代码更易于维护，性能也会有所改善。
-
-## 默认值
-
-你可以通过Store上的`defaultValue`属性，来设置它的默认值，在没有`Provider`时，`useStore`会使用`defaultValue`。
-
-```jsx
-function FooStore() {
-  const [x, setX] = useState(1)
-  return {x, setX}
-}
-FooStore.defaultValue = {x: 0}
-
-function App() {
-  const fooStore = useStore(FooStore)
-  console.log(fooStore) // {x: 0}
-  //...
-}
-```

@@ -6,14 +6,6 @@ exports[`Consumer 1`] = `
 </DocumentFragment>
 `;
 
-exports[`default value 1`] = `
-<DocumentFragment>
-  <div>
-    0
-  </div>
-</DocumentFragment>
-`;
-
 exports[`handle return undefined from state function 1`] = `
 <DocumentFragment>
   <div>
@@ -180,6 +172,14 @@ exports[`rerender on dependency update 2`] = `
       Change
     </button>
     3
+  </div>
+</DocumentFragment>
+`;
+
+exports[`useStoreOptionally 1`] = `
+<DocumentFragment>
+  <div>
+    false
   </div>
 </DocumentFragment>
 `;
