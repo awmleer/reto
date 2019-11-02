@@ -37,3 +37,24 @@ export const Provider = function<S extends Store>(props: PropsWithChildren<Props
 Provider.defaultProps = {
   args: [],
 }
+
+type FC<P extends {}> = (props: P) => React.ReactElement
+
+const wrapped = <P extends {}>(options: Props, Inner: FC<P>) => (props: P) => (
+  <Provider {...options}>
+    <Inner {...props} />
+  </Provider>
+)
+
+function mixin<P extends {}>(Component: FC<P>): FC<P>
+function mixin<P extends {}>(props: Props): typeof mixin
+function mixin(props: any, list: any[] = []) {
+  if (props instanceof Function) {
+    return list.reduce((sum, cur) => wrapped(cur, sum), props)
+  }
+  return (props1: any) => (mixin as any)(props1, [...list, props])
+}
+
+export function withProvider(props: Props) {
+  return mixin(props)
+}
