@@ -27,13 +27,13 @@ test('wrap the component with one provider', () => {
 })
 
 test('wrap the component with several providers', () => {
-  const FooStore = () => {
-    const [foo, setFoo] = React.useState('foo')
+  const FooStore = (defaulVal: string) => {
+    const [foo, setFoo] = React.useState(defaulVal)
     return { foo, setFoo }
   }
 
-  const BarStore = () => {
-    const [bar, setBar] = React.useState('bar')
+  const BarStore = (defaultVal: number) => {
+    const [bar, setBar] = React.useState(defaultVal)
     return { bar, setBar }
   }
 
@@ -48,12 +48,13 @@ test('wrap the component with several providers', () => {
     )
   }
 
-  const CompWithProvider = withProvider({ of: FooStore })({ of: BarStore })(
-    Comp
-  )
+  const CompWithProvider = withProvider({ of: FooStore, args: ['foo'] })({
+    of: BarStore,
+    args: [3000],
+  })(Comp)
 
   const { getByTestId } = render(<CompWithProvider name="Reto" />)
   const target = getByTestId('target')
 
-  expect(target.textContent).toBe('Hello, Reto! foo, bar')
+  expect(target.textContent).toBe('Hello, Reto! foo, 3000')
 })
