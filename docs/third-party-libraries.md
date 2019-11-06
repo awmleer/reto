@@ -6,6 +6,36 @@ If you are familiar with vue's `computed` feature, `useMemo` can help you to sol
 
 [useAsyncMemo](https://github.com/awmleer/use-async-memo) is very suitable for handling asynchronous computed data, for example, fetching paginated data or calling search API when input changes.
 
+## withWrapper
+
+If you create a `Provider` in one component, then you can't get the Store instance with `useStore` in this component:
+
+```jsx
+const App = function() {
+  const fooStore = useStore(FooStore) // You can't get the FooStore instance here
+  return (
+    <Provider of={FooStore}>
+      <p>Hello.</p>
+    </Provider>
+  )
+}
+```
+
+To solve this problem, you can use [withWrapper](https://github.com/awmleer/with-wrapper):
+
+```jsx
+const App = withWrapper(element => (
+  <Provider of={FooStore}>
+    {element}
+  </Provider>
+))(function() {
+  const fooStore = useStore(FooStore) // Now you can get the FooStore instance
+  return (
+    <p>Hello.</p>
+  )
+})
+```
+
 ## immer
 
 [immer](https://github.com/immerjs/immer) is a tiny package that allows you to work with immutable state in a more convenient way. You can see [here](https://github.com/immerjs/immer#reactsetstate-example) for more information.

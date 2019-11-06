@@ -6,6 +6,36 @@
 
 [useAsyncMemo](https://github.com/awmleer/use-async-memo)非常适合用来处理异步的计算数据，它对于`useMemo`是一个很好的补充。例如在翻页（`pageNumber`变化）时调用API加载远程数据。
 
+## withWrapper
+
+如果你在一个组件中创建了一个`FooStore`的`Provider`，那么是无法同时在这个组件通过`useStore(FooStore)`来获取这个Store的实例的：
+
+```jsx
+const App = function() {
+  const fooStore = useStore(FooStore) // 这里是获取不到 FooStore 实例的
+  return (
+    <Provider of={FooStore}>
+      <p>Hello.</p>
+    </Provider>
+  )
+}
+```
+
+为了解决这个问题，可以使用[withWrapper](https://github.com/awmleer/with-wrapper)：
+
+```jsx
+const App = withWrapper(element => (
+  <Provider of={FooStore}>
+    {element}
+  </Provider>
+))(function() {
+  const fooStore = useStore(FooStore) // 现在这里可以获取到 FooStore 实例了
+  return (
+    <p>Hello.</p>
+  )
+})
+```
+
 ## immer
 
 使用[immer](https://github.com/immerjs/immer)可以在某些时候简化`setState`的语法，详细用法可以参考其官方文档上的[介绍](https://github.com/immerjs/immer#reactsetstate-example)。
