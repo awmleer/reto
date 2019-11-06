@@ -4,7 +4,7 @@ import {Container} from './container'
 import {Executor} from './executor'
 import {getStoreContext, Store, StoreP, StoreV} from './store'
 
-export interface Props<S extends Store = Store> {
+interface Props<S extends Store = Store> {
   of: S
   args?: StoreP<S>
   memo?: boolean

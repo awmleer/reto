@@ -2,7 +2,7 @@ module.exports = {
   external: [
     'react',
   ],
-  input: 'lib/index.js',
+  input: 'lib/es/index.js',
   output: {
     name: 'reto',
     globals: {

@@ -9,10 +9,10 @@
     "esModuleInterop": true,
     "jsx": "react",
     "lib": ["es6"],
-    "outDir": "./lib"
+    "outDir": "lib"
   },
   "include": [
-    "./src/**/*"
+    "src/**/*"
   ],
   "exclude": [
     "**/__tests__",

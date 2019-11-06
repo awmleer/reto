@@ -1,3 +1,3 @@
 export {useStore, useStoreOptionally, Consumer} from './consumer'
-export {Provider, Props} from './provider'
+export {Provider} from './provider'
 export {Store} from './store'
