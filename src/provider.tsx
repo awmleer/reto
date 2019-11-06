@@ -21,7 +21,7 @@ export const Provider = function<S extends Store>(props: PropsWithChildren<Props
   
   const [initialized, setInitialized] = useState(false)
   function onChange(value: StoreV<S>) {
-    !initialized && setInitialized(true)
+    if (!initialized) setInitialized(true)
     container.state = value
     container.notify()
   }
