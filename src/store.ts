@@ -1,7 +1,7 @@
 import {Context, default as React} from 'react'
 import {Container} from './container'
 
-export interface Store<P extends unknown[] = unknown[], V = unknown> {
+export interface Store<P extends any[] = any[], V = any> {
   (...args: P): V
   displayName?: string
   // defaultProps?
