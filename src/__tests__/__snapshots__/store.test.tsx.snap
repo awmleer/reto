@@ -176,6 +176,21 @@ exports[`rerender on dependency update 2`] = `
 </DocumentFragment>
 `;
 
+exports[`storeRef 1`] = `
+Object {
+  "current": null,
+}
+`;
+
+exports[`storeRef 2`] = `
+Object {
+  "current": Object {
+    "setX": [Function],
+    "x": 1,
+  },
+}
+`;
+
 exports[`useStoreOptionally 1`] = `
 <DocumentFragment>
   <div>

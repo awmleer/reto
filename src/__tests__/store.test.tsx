@@ -255,6 +255,20 @@ test('provider memo', () => {
 })
 
 
+test('storeRef', () => {
+  const FooStore = function() {
+    const [x, setX] = useState(1)
+    return {x, setX}
+  }
+  const ref = createRef<ReturnType<typeof FooStore>>()
+  expect(ref).toMatchSnapshot()
+  testing.render(
+    <Provider of={FooStore} storeRef={ref}/>
+  )
+  expect(ref).toMatchSnapshot()
+})
+
+
 // test('ref', function () {
 //   function FooStore() {
 //     return 'foo'

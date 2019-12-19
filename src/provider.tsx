@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {PropsWithChildren, useRef, useState} from 'react'
+import {MutableRefObject, PropsWithChildren, useRef, useState} from 'react'
 import {Container} from './container'
 import {Executor} from './executor'
 import {getStoreContext, Store, StoreP, StoreV} from './store'
@@ -8,6 +8,7 @@ interface Props<S extends Store = Store> {
   of: S
   args?: StoreP<S>
   memo?: boolean
+  storeRef?: MutableRefObject<StoreV<S>>
 }
 
 export const Provider = function<S extends Store>(props: PropsWithChildren<Props<S>>) {
@@ -23,6 +24,9 @@ export const Provider = function<S extends Store>(props: PropsWithChildren<Props
   function onChange(value: StoreV<S>) {
     if (!initialized) setInitialized(true)
     container.state = value
+    if (props.storeRef) {
+      props.storeRef.current = value
+    }
     container.notify()
   }
   
