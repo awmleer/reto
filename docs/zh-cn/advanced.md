@@ -85,3 +85,19 @@ const fooStore = useStore(FooStore, store => [store.x > 10, store.x < 20])
 ### 拆分Store
 
 我们建议对一个庞大的Store进行拆分，这样不仅代码更易于维护，性能也会有所改善。
+
+## 获取Ref
+
+如果你需要获取Store的Ref，可以使用`Provider`的`storeRef`属性：
+
+```jsx
+const storeRef = useRef()
+function increase() {
+  storeRef.current.setCount(count + 1)
+}
+return (
+  <Provider of={FooStore} storeRef={storeRef}>
+    {/*...*/}
+  </Provider>
+)
+```

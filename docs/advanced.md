@@ -88,3 +88,19 @@ This is very similar to `useMemo` and `useEffect`. But please notice that the `d
 ### Split Store
 
 We recommend splitting a large Store into small parts, so that not only is the code easier to maintain, but performance can also get improved.
+
+## Store Ref
+
+If you want to get the ref of store object, you can use the `storeRef` prop of `Provider`:
+
+```jsx
+const storeRef = useRef()
+function increase() {
+  storeRef.current.setCount(count + 1)
+}
+return (
+  <Provider of={FooStore} storeRef={storeRef}>
+    {/*...*/}
+  </Provider>
+)
+```
