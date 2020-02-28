@@ -38,6 +38,8 @@ export const Provider = function<S extends Store>(props: PropsWithChildren<Props
   )
 }
 
+Provider.displayName = 'Provider'
+
 Provider.defaultProps = {
   args: [],
 }

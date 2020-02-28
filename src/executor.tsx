@@ -1,4 +1,4 @@
-import {FC, memo} from 'react'
+import {FC, memo, useEffect} from 'react'
 import {Store, StoreP, StoreV} from './store'
 
 interface Props {
@@ -8,8 +8,12 @@ interface Props {
   memo?: boolean
 }
 
-export const Executor: FC<Props> = memo((props) => {
-  props.onChange((props.args ? props.useStore(...props.args) : props.useStore()))
+export const Executor: FC<Props> = memo(function Executor(props) {
+  const args = props.args ?? []
+  const result = props.useStore(...args)
+  useEffect(() => {
+    props.onChange(result)
+  })
   return null
 }, (prevProps, nextProps) => {
   if (!nextProps.memo) {
