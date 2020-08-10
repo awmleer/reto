@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {MutableRefObject, PropsWithChildren, useRef, useState} from 'react'
+import {forwardRef, MutableRefObject, PropsWithChildren, useImperativeHandle, useRef, useState} from 'react'
 import {Container} from './container'
 import {Executor} from './executor'
 import {getStoreContext, Store, StoreP, StoreV} from './store'
@@ -20,21 +20,23 @@ export const Provider = function<S extends Store>(props: PropsWithChildren<Props
   }
   const container = containerRef.current
   
-  const [initialized, setInitialized] = useState(false)
+  const checkRef = useRef<CheckRef>()
   function onChange(value: StoreV<S>) {
-    if (!initialized) setInitialized(true)
-    container.state = value
     if (props.storeRef) {
       props.storeRef.current = value
     }
-    container.notify()
+    checkRef.current.onInitialize()
   }
   
   return (
-    <Context.Provider value={container}>
-      <Executor useStore={props.of} args={props.args} onChange={onChange} memo={props.memo}/>
-      {initialized && props.children}
-    </Context.Provider>
+    <>
+      <Executor useStore={props.of} args={props.args} onChange={onChange} memo={props.memo} container={container}/>
+      <Context.Provider value={container}>
+        <Checker container={container} ref={checkRef}>
+          {props.children}
+        </Checker>
+      </Context.Provider>
+    </>
   )
 }
 
@@ -43,3 +45,27 @@ Provider.displayName = 'Provider'
 Provider.defaultProps = {
   args: [],
 }
+
+interface CheckRef {
+  onInitialize: () => void
+}
+
+const Checker = forwardRef<CheckRef, PropsWithChildren<{
+  container: Container<any>
+}>>((props, ref) => {
+  const [initialized, setInitialized] = useState(props.container.initialized)
+  
+  useImperativeHandle(ref, () => ({
+    onInitialize: () => {
+      setInitialized(true)
+    }
+  }))
+  
+  return initialized && (
+    <>
+      {props.children}
+    </>
+  )
+})
+
+Checker.displayName = 'Checker'

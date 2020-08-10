@@ -5,6 +5,7 @@ export class Container<V> {
   constructor(
     public state?: V
   ) {}
+  initialized = false
   notify() {
     for (const subscriber of this.subscribers) {
       subscriber()

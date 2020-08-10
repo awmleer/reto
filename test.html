@@ -17,19 +17,40 @@
   const {useState} = React
 
   function FooStore(initial = 1) {
+    console.log('rendering FooStore')
     const [x, setX] = useState(initial)
+    console.log('FooStore', x)
     return {
       x,
       setX
     }
   }
 
-  const App = (props) => {
+  function BarStore() {
+    console.log('rendering BarStore')
     const fooStore = useStore(FooStore)
+    console.log('BarStore', fooStore.x)
+    // const [y, setY] = useState(1)
+
+    return {
+      y: fooStore.x + 1,
+      // setY,
+      fooStore
+    }
+  }
+
+  const App = (props) => {
+    console.log('rendering App')
+    const fooStore = useStore(FooStore)
+    // const barStore = useStore(BarStore)
 
     function changeStore() {
       fooStore.setX(fooStore.x + 1)
+      // barStore.setY(barStore.y + 1)
     }
+
+    // console.log('App', fooStore.x, barStore.y)
+
     return (
       <div>
         <button onClick={changeStore}>Change</button>
@@ -38,11 +59,19 @@
     )
   }
 
+  const Child = () => {
+    console.log('rendering Child')
+    return <div>
+      child
+    </div>
+  }
+
   ReactDOM.render(
     <h1>
       Hello, world!
-      <Provider of={FooStore}>
-        <App/>
+      <Provider of={FooStore} memo>
+          <App/>
+          <Child/>
       </Provider>
     </h1>,
     document.getElementById('root')

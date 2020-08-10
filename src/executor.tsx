@@ -1,9 +1,11 @@
 import {FC, memo, useEffect} from 'react'
+import {Container} from './container'
 import {Store, StoreP, StoreV} from './store'
 
 interface Props {
   useStore: Store
   onChange: (value: StoreV<Store>) => void
+  container: Container<StoreV<Store>>
   args?: StoreP<Store>
   memo?: boolean
 }
@@ -11,8 +13,11 @@ interface Props {
 export const Executor: FC<Props> = memo(function Executor(props) {
   const args = props.args ?? []
   const result = props.useStore(...args)
+  props.container.state = result
+  props.container.initialized = true
   useEffect(() => {
     props.onChange(result)
+    props.container.notify()
   })
   return null
 }, (prevProps, nextProps) => {
