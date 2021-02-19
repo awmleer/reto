@@ -1,9 +1,11 @@
 import * as React from 'react'
-import {ReactNode, useContext, useDebugValue, useEffect, useRef, useState} from 'react'
+import {ReactNode, useContext, useEffect, useRef, useState} from 'react'
 import {ReactElement} from 'react'
 import {Container} from './container'
 import {NoStoreError} from './error'
 import {defaultStoreValue, getStoreContext, Store, StoreV} from './store'
+
+const useDebugValue = React.useDebugValue ?? (() => {})
 
 type Deps<T> = (store: T) => unknown[]
 
