@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": false,
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "^16.8 || ^17.0"
   },
   "scripts": {
     "build": "gulp build",
