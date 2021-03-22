@@ -1,5 +1,5 @@
 import * as React from 'react'
-import {forwardRef, MutableRefObject, PropsWithChildren, useImperativeHandle, useRef, useState} from 'react'
+import {forwardRef, MutableRefObject, PropsWithChildren, Ref, useImperativeHandle, useRef, useState} from 'react'
 import {Container} from './container'
 import {Executor} from './executor'
 import {getStoreContext, Store, StoreP, StoreV} from './store'
@@ -8,7 +8,7 @@ interface Props<S extends Store = Store> {
   of: S
   args?: StoreP<S>
   memo?: boolean
-  storeRef?: MutableRefObject<StoreV<S>>
+  storeRef?: Ref<StoreV<S>>
 }
 
 export const Provider = function<S extends Store>(props: PropsWithChildren<Props<S>>) {
@@ -23,7 +23,11 @@ export const Provider = function<S extends Store>(props: PropsWithChildren<Props
   const checkRef = useRef<CheckRef>()
   function onChange(value: StoreV<S>) {
     if (props.storeRef) {
-      props.storeRef.current = value
+      if (typeof props.storeRef === 'function') {
+        props.storeRef(value)
+      } else {
+        (props.storeRef as MutableRefObject<StoreV<S>>).current = value
+      }
     }
     checkRef.current.onInitialize()
   }
