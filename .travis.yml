@@ -8,7 +8,6 @@ install:
   - yarn install
   - yarn global add codecov codacy-coverage
 script:
-  - yarn lint
   - yarn test --coverage
   - yarn build
 after_success:
